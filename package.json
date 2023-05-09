@@ -1,0 +1,32 @@
+{
+  "name": "mini-van",
+  "version": "0.2.5",
+  "description": "A slim version of VanJS with only DOM composition and manipulation.",
+  "main": "src/mini-van.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Van",
+    "UI",
+    "React",
+    "DOM",
+    "Vanilla"
+  ],
+  "author": "Tao Xin",
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.17.12",
+    "terser": "^5.17.1",
+    "typescript": "^5.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexander-xin/mini-van.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alexander-xin/mini-van/issues"
+  },
+  "homepage": "https://github.com/alexander-xin/mini-van#readme"
+}
