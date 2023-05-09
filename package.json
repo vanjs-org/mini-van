@@ -23,10 +23,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexander-xin/mini-van.git"
+    "url": "git+https://github.com/vanjs-org/mini-van.git"
   },
   "bugs": {
-    "url": "https://github.com/alexander-xin/mini-van/issues"
+    "url": "https://github.com/vanjs-org/mini-van/issues"
   },
-  "homepage": "https://github.com/alexander-xin/mini-van#readme"
+  "homepage": "https://vanjs.org/minivan"
 }
