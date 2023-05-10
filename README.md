@@ -1,4 +1,4 @@
-# **Mini-Van**: A Minimalist Template Engine for DOM Generation, Working for Both Client-side and Server-side Rendering
+# **Mini-Van**: A Minimalist Template Engine for Client/Server-side Rendering
 
 **Mini-Van** is an ***ultra-lightweight*** template engine for DOM composition and manipulation. With only 0.5kB in the minized bundle size, **Mini-Van** enables you to build comprehensive UI with elegant and expressive vanilla JavaScript code:
 
