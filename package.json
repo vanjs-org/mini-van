@@ -1,6 +1,6 @@
 {
   "name": "mini-van-plate",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "A Minimalist Template Engine for DOM Generation and Manipulation, Working for Both Client-side and Server-side Rendering",
   "files": [
     "src/mini-van.js",
