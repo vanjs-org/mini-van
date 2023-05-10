@@ -54,8 +54,7 @@ In `van-plate` mode, HTML content is generated purely through text templating. I
 
 ```typescript
 import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
-// TODO: change it to https path after publishing mini-van to deno land
-import van from "../van-plate.js"
+import van from "https://deno.land/x/minivan@0.2.5/src/van-plate.js"
 
 const {a, body, li, p, ul} = van.tags
 
@@ -101,8 +100,7 @@ There are multiple 3rd-party options for the `Document` object. In the example b
 ```typescript
 import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-// TODO: change it to https path after publishing mini-van to deno land
-import van from "../mini-van.js"
+import van from "https://deno.land/x/minivan@0.2.5/src/mini-van.js"
 
 const document = new DOMParser().parseFromString("", "text/html")!
 const {tags, html} = van.vanWithDoc(document)
