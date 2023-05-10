@@ -1,6 +1,6 @@
 {
   "name": "mini-van",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "A slim version of VanJS with only DOM composition and manipulation.",
   "main": "src/mini-van.js",
   "type": "module",
