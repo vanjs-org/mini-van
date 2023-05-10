@@ -1,4 +1,4 @@
-# **Mini-Van**: A Minimalist Template Engine for DOM Generation. Working for both Client-side and Server-side Rendering
+# **Mini-Van**: A Minimalist Template Engine for DOM Generationk, working for both Client-side and Server-side Rendering
 
 **Mini-Van** is an ***ultra-lightweight*** template engine for DOM composition and manipulation. With only 0.5kB in the minized bundle size, **Mini-Van** enables you to build comprehensive UI with elegant and expressive vanilla JavaScript code:
 
@@ -24,26 +24,6 @@ You can convert any HTML snippet into **Mini-Van** code with our online [convert
 
 **Mini-Van** is the slimmed-down version of [**VanJS**](https://vanjs.org), which aims to provide an ***ultra-lightweight***, ***zero-dependency***, and ***unopinionated*** Reactive UI framework based on pure vanilla JavaScript and DOM. Compared to **VanJS**, **Mini-Van** further reduces the bundle size to 0.5kB and can be used on the server-side as a [template engine](https://en.wikipedia.org/wiki/Web_template_system).
 
-## Getting Started on the Client-Side
-
-To get started with **Mini-Van**, download the latest version [`mini-van-0.2.6.min.js`](https://vanjs.org/autodownload?file=mini-van-0.2.6.min.js) and add the line below to your script:
-
-```javascript
-import van from "./mini-van-0.2.6.min.js"
-```
-
-To code without ES6 modules, you can download the bundled version [`mini-van-0.2.6.nomodule.min.js`](https://vanjs.org/autodownload?file=mini-van-0.2.6.nomodule.min.js) and add the following line to your HTML file instead:
-
-```html
-<script type="text/javascript" src="mini-van-0.2.6.nomodule.min.js"></script>
-```
-
-You can find all relevant **Mini-Van** files in this [Download Table](https://vanjs.org/minivan#download-table).
-
-## API Reference
-
-**Mini-Van** exposes the same set of APIs as **VanJS** for DOM composition and manipulation. Thus for API reference, you can refer to [DOM Composition and Manipulation](https://vanjs.org/tutorial#dom) section of **VanJS** tutorial. Note that: state and state binding are not supported in **Mini-Van**.
-
 ## Server-Side: Deno Integration
 
 **Mini-Van** can be used on the server side as a template engine to render dynamic web content for HTTP servers. If you use Deno, the integration is fairly straightforward.
@@ -56,7 +36,7 @@ In `van-plate` mode, HTML content is generated purely through text templating. I
 
 ```typescript
 import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
-import van from "https://deno.land/x/minivan@0.2.6/src/van-plate.js"
+import van from "https://deno.land/x/minivan@0.2.7/src/van-plate.js"
 
 const {a, body, li, p, ul} = van.tags
 
@@ -102,7 +82,7 @@ There are multiple 3rd-party options for the `Document` object. In the example b
 ```typescript
 import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-import van from "https://deno.land/x/minivan@0.2.6/src/mini-van.js"
+import van from "https://deno.land/x/minivan@0.2.7/src/mini-van.js"
 
 const document = new DOMParser().parseFromString("", "text/html")!
 const {tags, html} = van.vanWithDoc(document)
@@ -140,3 +120,23 @@ Similar to `van-plate` mode, we have a helper function `html` defined in `mini-v
 ```javascript
 (...args) => "<!DOCTYPE html>" + tags.html(...args).outerHTML
 ```
+
+## Client-Side: Getting Started
+
+To get started with **Mini-Van**, download the latest version [`mini-van-0.2.7.min.js`](https://vanjs.org/autodownload?file=mini-van-0.2.7.min.js) and add the line below to your script:
+
+```javascript
+import van from "./mini-van-0.2.7.min.js"
+```
+
+To code without ES6 modules, you can download the bundled version [`mini-van-0.2.7.nomodule.min.js`](https://vanjs.org/autodownload?file=mini-van-0.2.7.nomodule.min.js) and add the following line to your HTML file instead:
+
+```html
+<script type="text/javascript" src="mini-van-0.2.7.nomodule.min.js"></script>
+```
+
+You can find all relevant **Mini-Van** files in this [Download Table](https://vanjs.org/minivan#download-table).
+
+## API Reference
+
+**Mini-Van** exposes the same set of APIs as **VanJS** for DOM composition and manipulation. Thus for API reference, you can refer to [DOM Composition and Manipulation](https://vanjs.org/tutorial#dom) section of **VanJS** tutorial. Note that: state and state binding are not supported in **Mini-Van**.

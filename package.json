@@ -1,7 +1,7 @@
 {
   "name": "mini-van",
-  "version": "0.2.6",
-  "description": "A slim version of VanJS with only DOM composition and manipulation.",
+  "version": "0.2.7",
+  "description": "A Minimalist Template Engine for DOM Generation, working for both Client-side and Server-side Rendering",
   "main": "src/mini-van.js",
   "type": "module",
   "scripts": {
