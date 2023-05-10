@@ -1,18 +1,32 @@
 {
   "name": "mini-van",
-  "version": "0.2.8",
-  "description": "A Minimalist Template Engine for DOM Generation, working for both Client-side and Server-side Rendering",
+  "version": "0.2.9",
+  "description": "A Minimalist Template Engine for DOM Generation and Manipulation, Working for Both Client-side and Server-side Rendering",
+  "files": [
+    "src/mini-van.js",
+    "src/van-plate.js"
+  ],
   "main": "src/mini-van.js",
+  "exports": {
+    ".": "./src/mini-van.js",
+    "./van-plate": "./src/van-plate.js"
+  },
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "Van",
-    "UI",
-    "React",
+    "Template",
+    "Rendering",
+    "Server-side Rendering",
     "DOM",
-    "Vanilla"
+    "DOM Generation",
+    "DOM Manipulation",
+    "Van",
+    "Vanilla",
+    "Zero-Dependency",
+    "Ultra-lightweight",
+    "Minimalist"
   ],
   "author": "Tao Xin",
   "license": "MIT",
@@ -26,7 +40,8 @@
     "url": "git+https://github.com/vanjs-org/mini-van.git"
   },
   "bugs": {
-    "url": "https://github.com/vanjs-org/mini-van/issues"
+    "url": "https://github.com/vanjs-org/mini-van/issues",
+    "email": "bugs@vanjs.org"
   },
   "homepage": "https://vanjs.org/minivan"
 }
