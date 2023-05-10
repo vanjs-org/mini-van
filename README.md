@@ -169,7 +169,7 @@ server.listen(port, hostname, () =>
 
 ### `mini-van` mode
 
-Likewise, `mini-van` mode needs a 3rd-party DOM library to provide `Document` object. We will show an example with the integration of [`jsdom`](https://github.com/jsdom/jsdom).
+Likewise, `mini-van` mode needs a 3rd-party DOM library to provide the `Document` object. We will show an example with the integration of [`jsdom`](https://github.com/jsdom/jsdom).
 
 First, install `jsdom`:
 
