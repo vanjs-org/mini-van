@@ -1,4 +1,4 @@
-# **Mini-Van**: A Minimalist Template Engine for DOM Generationk, working for both Client-side and Server-side Rendering
+# **Mini-Van**: A Minimalist Template Engine for DOM Generation, working for both Client-side and Server-side Rendering
 
 **Mini-Van** is an ***ultra-lightweight*** template engine for DOM composition and manipulation. With only 0.5kB in the minized bundle size, **Mini-Van** enables you to build comprehensive UI with elegant and expressive vanilla JavaScript code:
 
@@ -36,7 +36,7 @@ In `van-plate` mode, HTML content is generated purely through text templating. I
 
 ```typescript
 import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
-import van from "https://deno.land/x/minivan@0.2.7/src/van-plate.js"
+import van from "https://deno.land/x/minivan@0.2.8/src/van-plate.js"
 
 const {a, body, li, p, ul} = van.tags
 
@@ -82,7 +82,7 @@ There are multiple 3rd-party options for the `Document` object. In the example b
 ```typescript
 import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-import van from "https://deno.land/x/minivan@0.2.7/src/mini-van.js"
+import van from "https://deno.land/x/minivan@0.2.8/src/mini-van.js"
 
 const document = new DOMParser().parseFromString("", "text/html")!
 const {tags, html} = van.vanWithDoc(document)
@@ -123,16 +123,16 @@ Similar to `van-plate` mode, we have a helper function `html` defined in `mini-v
 
 ## Client-Side: Getting Started
 
-To get started on the client side, download the latest version [`mini-van-0.2.7.min.js`](https://vanjs.org/autodownload?file=mini-van-0.2.7.min.js) and add the line below to your script:
+To get started on the client side, download the latest version [`mini-van-0.2.8.min.js`](https://vanjs.org/autodownload?file=mini-van-0.2.8.min.js) and add the line below to your script:
 
 ```javascript
-import van from "./mini-van-0.2.7.min.js"
+import van from "./mini-van-0.2.8.min.js"
 ```
 
-To code without ES6 modules, you can download the bundled version [`mini-van-0.2.7.nomodule.min.js`](https://vanjs.org/autodownload?file=mini-van-0.2.7.nomodule.min.js) and add the following line to your HTML file instead:
+To code without ES6 modules, you can download the bundled version [`mini-van-0.2.8.nomodule.min.js`](https://vanjs.org/autodownload?file=mini-van-0.2.8.nomodule.min.js) and add the following line to your HTML file instead:
 
 ```html
-<script type="text/javascript" src="mini-van-0.2.7.nomodule.min.js"></script>
+<script type="text/javascript" src="mini-van-0.2.8.nomodule.min.js"></script>
 ```
 
 You can find all relevant **Mini-Van** files in this [Download Table](https://vanjs.org/minivan#download-table).
