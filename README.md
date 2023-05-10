@@ -123,7 +123,7 @@ Similar to `van-plate` mode, we have a helper function `html` defined in `mini-v
 
 ## Client-Side: Getting Started
 
-To get started with **Mini-Van**, download the latest version [`mini-van-0.2.7.min.js`](https://vanjs.org/autodownload?file=mini-van-0.2.7.min.js) and add the line below to your script:
+To get started on the client side, download the latest version [`mini-van-0.2.7.min.js`](https://vanjs.org/autodownload?file=mini-van-0.2.7.min.js) and add the line below to your script:
 
 ```javascript
 import van from "./mini-van-0.2.7.min.js"
