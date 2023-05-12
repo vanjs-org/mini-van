@@ -236,6 +236,10 @@ You can find all relevant **Mini-Van** files in this [Download Table](https://va
 
 **Mini-Van** exposes the same set of APIs as **VanJS** for DOM composition and manipulation. Thus for API reference, you can refer to [DOM Composition and Manipulation](https://vanjs.org/tutorial#dom) section of **VanJS** tutorial. Note that: state and state binding are not supported in **Mini-Van**.
 
-## Contact Us
+## Support & Feedback
 
-[tao@vanjs.org](mailto:tao@vanjs.org)
+🙏 **VanJS** aims to build a better world by reducing the entry barrier for UI programming, with no intention or plan on commercialization whatsoever. If you find **VanJS** interesting, or could be useful for you some day, please consider starring the project. It takes just one seconds but your support means the world to us and helps spread **VanJS** to a wider audience.
+
+We're looking for the 1.0 milestone (commitment to API stability) soon, your precious feedback will be greatly appreciated. You can submit your feedback by [creating issues](https://github.com/vanjs-org/mini-van/issues/new).
+
+Contact us: [tao@vanjs.org](mailto:tao@vanjs.org)
