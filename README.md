@@ -230,7 +230,7 @@ To code without ES6 modules, you can download the bundled version [`mini-van-0.3
 <script type="text/javascript" src="mini-van-0.3.0.nomodule.min.js"></script>
 ```
 
-You can find all relevant **Mini-Van** files in this [Download Table](https://vanjs.org/minivan#download-table). 
+You can find all relevant **Mini-Van** files in this [Download Table](https://vanjs.org/minivan#download-table).
 
 ## API Reference
 
