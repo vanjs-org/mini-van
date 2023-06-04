@@ -9,14 +9,16 @@ let vanWithDoc = doc => {
   let toDom = v => v.nodeType ? v : doc.createTextNode(v)
 
   let _result = {
-    add: (dom, ...children) => (
-      children.flat(Infinity).forEach(child => dom.appendChild(toDom(child))), dom),
+    add: (dom, ...children) => {
+      for (let child of children.flat(Infinity)) dom.appendChild(toDom(child))
+      return dom
+    },
 
     tags: new Proxy((name, ...args) => {
       let [props, ...children] = args[0]?.constructor === Obj ? args : [{}, ...args]
       let dom = doc.createElement(name)
-      Obj.entries(props).forEach(([k, v]) =>
-        dom[k] !== undefined ? dom[k] = v : dom.setAttribute(k, v))
+      for (let [k, v] of Obj.entries(props))
+        dom[k] !== undefined ? dom[k] = v : dom.setAttribute(k, v)
       return _result.add(dom, ...children)
     }, {get: (tag, name) => tag.bind(null, name)}),
 
