@@ -8,11 +8,11 @@ cp mini-van.js ../public/mini-van-$VER.js
 cp mini-van.d.ts ../public/mini-van-$VER.d.ts
 ../node_modules/esbuild/bin/esbuild mini-van.forbundle.js --bundle --outfile=../public/mini-van-$VER.nomodule.js
 
-$TERSER mini-van.js --compress --toplevel --mangle --mangle-props keep_quoted -o ../public/mini-van-$VER.min.js
+$TERSER mini-van.js --compress --toplevel --mangle --mangle-props keep_quoted -f wrap_func_args=false -o ../public/mini-van-$VER.min.js
 cp mini-van.d.ts ../public/mini-van-$VER.min.d.ts
-MIN_NOMODULE=$($TERSER ../public/mini-van-$VER.nomodule.js --compress --toplevel --mangle --mangle-props keep_quoted)
-# echo -n "{let${MIN_NOMODULE:3}}" > ../public/mini-van-$VER.nomodule.min.js
-echo -n "$MIN_NOMODULE" > ../public/mini-van-$VER.nomodule.min.js
+MIN_NOMODULE=$($TERSER ../public/mini-van-$VER.nomodule.js --compress --toplevel --mangle --mangle-props keep_quoted -f wrap_func_args=false)
+echo -n "{let${MIN_NOMODULE:3}}" > ../public/mini-van-$VER.nomodule.min.js
+# echo -n "$MIN_NOMODULE" > ../public/mini-van-$VER.nomodule.min.js
 
 cp ../public/mini-van-$VER.js ../public/mini-van-latest.js
 cp ../public/mini-van-$VER.d.ts ../public/mini-van-latest.d.ts
