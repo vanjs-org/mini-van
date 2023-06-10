@@ -41,6 +41,17 @@ Deno.test("nested children", () => {
     "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>")
 })
 
+Deno.test("null or undefined are ignored", () => {
+  assertEquals(ul(li("Item 1"), li("Item 2"), undefined, li("Item 3"), null).render(),
+    "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>")
+  assertEquals(ul([li("Item 1"), li("Item 2"), undefined, li("Item 3"), null]).render(),
+    "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>")
+  // Deeply nested
+  assertEquals(ul([[undefined, li("Item 1"), null, [li("Item 2")]], null, li("Item 3"), undefined]).render(),
+    "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>")
+})
+
+
 Deno.test("add basic", () => {
   const dom = ul()
   assertEquals(van.add(dom, li("Item 1"), li("Item 2")), dom)
@@ -62,6 +73,23 @@ Deno.test("add nested children", () => {
   // No-op if no children specified
   assertEquals(van.add(dom, [[[]]]), dom)
   assertEquals(dom.render(), "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li></ul>")
+})
+
+Deno.test("add: null or undefined are ignored", () => {
+  const dom = ul()
+  assertEquals(van.add(dom, li("Item 1"), li("Item 2"), undefined, li("Item 3"), null), dom)
+  assertEquals(dom.render(), "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>")
+  assertEquals(van.add(dom, [li("Item 4"), li("Item 5"), undefined, li("Item 6"), null]), dom)
+  assertEquals(dom.render(),
+    "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li><li>Item 6</li></ul>")
+  // Deeply nested
+  assertEquals(van.add(dom, [[undefined, li("Item 7"), null, [li("Item 8")]], null, li("Item 9"), undefined]), dom)
+  assertEquals(dom.render(),
+    "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li><li>Item 6</li><li>Item 7</li><li>Item 8</li><li>Item 9</li></ul>")
+  // No-op if no non-empty children specified
+  assertEquals(van.add(dom, [[null, [undefined]], undefined], null), dom)
+  assertEquals(dom.render(),
+    "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li><li>Item 6</li><li>Item 7</li><li>Item 8</li><li>Item 9</li></ul>")
 })
 
 Deno.test("html", () => {

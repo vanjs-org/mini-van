@@ -27,6 +27,11 @@
         assertEq(ul([li("Item 1"), li("Item 2"), li("Item 3")]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
         assertEq(ul([[li("Item 1"), [li("Item 2")]], li("Item 3")]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
       },
+      tagsTest_nullOrUndefinedAreIgnored: () => {
+        assertEq(ul(li("Item 1"), li("Item 2"), void 0, li("Item 3"), null).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
+        assertEq(ul([li("Item 1"), li("Item 2"), void 0, li("Item 3"), null]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
+        assertEq(ul([[void 0, li("Item 1"), null, [li("Item 2")]], null, li("Item 3"), void 0]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
+      },
       addTest_basic: () => {
         const dom = ul();
         assertEq(add(dom, li("Item 1"), li("Item 2")), dom);
@@ -44,6 +49,15 @@
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li></ul>");
         assertEq(add(dom, [[[]]]), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li></ul>");
+      },
+      addTest_nullOrUndefinedAreIgnored: () => {
+        const dom = ul();
+        assertEq(add(dom, li("Item 1"), li("Item 2"), void 0, li("Item 3"), null), dom);
+        assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
+        assertEq(add(dom, [li("Item 4"), li("Item 5"), void 0, li("Item 6"), null]), dom);
+        assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li><li>Item 6</li></ul>");
+        assertEq(add(dom, [[void 0, li("Item 7"), null, [li("Item 8")]], null, li("Item 9"), void 0]), dom);
+        assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li><li>Item 6</li><li>Item 7</li><li>Item 8</li><li>Item 9</li></ul>");
       },
       htmlTest: () => {
         assertEq(html(head(title("Hello")), body(div2("World"))), "<!DOCTYPE html><html><head><title>Hello</title></head><body><div>World</div></body></html>");

@@ -26,6 +26,12 @@ const runTests = (vanObj, msgDom) => {
             // Deeply nested
             assertEq(ul([[li("Item 1"), [li("Item 2")]], li("Item 3")]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
         },
+        tagsTest_nullOrUndefinedAreIgnored: () => {
+            assertEq(ul(li("Item 1"), li("Item 2"), undefined, li("Item 3"), null).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
+            assertEq(ul([li("Item 1"), li("Item 2"), undefined, li("Item 3"), null]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
+            // Deeply nested
+            assertEq(ul([[undefined, li("Item 1"), null, [li("Item 2")]], null, li("Item 3"), undefined]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
+        },
         addTest_basic: () => {
             const dom = ul();
             assertEq(add(dom, li("Item 1"), li("Item 2")), dom);
@@ -46,6 +52,16 @@ const runTests = (vanObj, msgDom) => {
             // No-op if no children specified
             assertEq(add(dom, [[[]]]), dom);
             assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li></ul>");
+        },
+        addTest_nullOrUndefinedAreIgnored: () => {
+            const dom = ul();
+            assertEq(add(dom, li("Item 1"), li("Item 2"), undefined, li("Item 3"), null), dom);
+            assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
+            assertEq(add(dom, [li("Item 4"), li("Item 5"), undefined, li("Item 6"), null]), dom);
+            assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li><li>Item 6</li></ul>");
+            // Deeply nested
+            assertEq(add(dom, [[undefined, li("Item 7"), null, [li("Item 8")]], null, li("Item 9"), undefined]), dom);
+            assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li><li>Item 6</li><li>Item 7</li><li>Item 8</li><li>Item 9</li></ul>");
         },
         htmlTest: () => {
             assertEq(html(head(title("Hello")), body(div("World"))), "<!DOCTYPE html><html><head><title>Hello</title></head><body><div>World</div></body></html>");

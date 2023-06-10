@@ -6,7 +6,7 @@ export interface Props {
 
 export interface Element { render(): string }
 
-export type ChildDom = Primitive | Element | readonly ChildDom[]
+export type ChildDom = Primitive | Element | readonly ChildDom[] | null | undefined
 
 export type TagFunc = (first?: Props | ChildDom, ...rest: readonly ChildDom[]) => Element
 

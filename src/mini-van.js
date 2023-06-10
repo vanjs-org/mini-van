@@ -3,14 +3,15 @@
 // This file consistently uses `let` keyword instead of `const` for reducing the bundle size.
 
 // Aliasing some builtin symbols to reduce the bundle size.
-let Obj = Object
+let Obj = Object, _undefined
 
 let vanWithDoc = doc => {
   let toDom = v => v.nodeType ? v : doc.createTextNode(v)
 
   let _result = {
     add: (dom, ...children) => {
-      for (let child of children.flat(Infinity)) dom.appendChild(toDom(child))
+      for (let child of children.flat(Infinity))
+        if (child != _undefined) dom.appendChild(toDom(child))
       return dom
     },
 

@@ -7,7 +7,7 @@ export interface Props {
 }
 
 export type ChildDom<ElementType, TextNodeType> = Primitive | ElementType | TextNodeType
-  | readonly ChildDom<ElementType, TextNodeType>[]
+  | readonly ChildDom<ElementType, TextNodeType>[] | null | undefined
 
 type AddFunc<ElementType, TextNodeType> =
   (dom: ElementType, ...children: readonly ChildDom<ElementType, TextNodeType>[]) => ElementType
@@ -16,13 +16,13 @@ export type TagFunc<ElementType = Element, TextNodeType = Text, ResultType = Ele
   (first?: Props | ChildDom<ElementType, TextNodeType>,
     ...rest: readonly ChildDom<ElementType, TextNodeType>[]) => ResultType
 
-type Tags<ElementType, TextNodeType> = {
+interface Tags<ElementType, TextNodeType> {
   readonly [key: string]: TagFunc<ElementType, TextNodeType>
 }
 
 // Tags type in browser context, which contains the signatures to tag functions that return
 // specialized DOM elements.
-type BrowserTags = Tags<Element, Text> & {
+interface BrowserTags extends Tags<Element, Text> {
   // Register known element types
   // Source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element
 
@@ -139,7 +139,7 @@ type VanWithDoc = <ElementType, TextNodeType>(
     ...rest: readonly ChildDom<ElementType, TextNodeType>[]) => string
 }
 
-export type Van = {
+export interface Van {
   readonly vanWithDoc: VanWithDoc
   readonly add: AddFunc<Element, Text>
   readonly tags: BrowserTags

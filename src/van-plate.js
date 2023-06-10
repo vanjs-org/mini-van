@@ -36,7 +36,7 @@ const elementProto = {
   }
 }
 
-const toStr = children => children.flat(Infinity).map(
+const toStr = children => children.map(
   c => Object.getPrototypeOf(c) === elementProto ? c.render() : escape(c.toString())).join("")
 
 const tags = new Proxy((name, ...args) => {
@@ -45,11 +45,13 @@ const tags = new Proxy((name, ...args) => {
   const propsStr = Object.entries(props).map(([k, v]) =>
     typeof v === "boolean" ?
     (v ? " " + k : "") : ` ${k}=${JSON.stringify(v)}`).join("")
+  const flattenedChildren = children.flat(Infinity).filter(c => c != null)
   return {__proto__: elementProto, name, propsStr,
-    childrenStrs: children.length > 0 ? [toStr(children)] : []}
+    childrenStrs: flattenedChildren.length > 0 ? [toStr(flattenedChildren)] : []}
 }, { get: (tag, name) => tag.bind(null, name) })
 
 const add = (dom, ...children) => {
+  children = children.flat(Infinity).filter(c => c != null)
   if (children.length > 0) dom.childrenStrs.push(toStr(children))
   return dom
 }
