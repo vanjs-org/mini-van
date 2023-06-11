@@ -221,17 +221,19 @@ await serve(req => new Response(
 
 ## Client-Side: Getting Started
 
-To get started on the client side, download the latest version [`mini-van-.min.js`](https://vanjs.org/autodownload?file=mini-van-.min.js) and add the line below to your script:
+To get started on the client side, add the line below to your script:
 
 ```javascript
-import van from "./mini-van-.min.js"
+import van from "https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.3.7.min.js"
 ```
 
-To code without ES6 modules, you can download the bundled version [`mini-van-.nomodule.min.js`](https://vanjs.org/autodownload?file=mini-van-.nomodule.min.js) and add the following line to your HTML file instead:
+To code without ES6 modules, add the following line to your HTML file instead:
 
 ```html
-<script type="text/javascript" src="mini-van-.nomodule.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.3.7.nomodule.min.js"></script>
 ```
+
+Alternative you can download the files ([`mini-van-0.3.7.min.js`](https://vanjs.org/autodownload?file=mini-van-0.3.7.min.js), [`mini-van-0.3.7.nomodule.min.js`](https://vanjs.org/autodownload?file=mini-van-0.3.7.nomodule.min.js)) and serve them locally.
 
 You can find all relevant **Mini-Van** files in this [Download Table](https://vanjs.org/minivan#download-table).
 
