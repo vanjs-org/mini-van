@@ -233,7 +233,7 @@ To code without ES6 modules, add the following line to your HTML file instead:
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.3.7.nomodule.min.js"></script>
 ```
 
-Alternative you can download the files ([`mini-van-0.3.7.min.js`](https://vanjs.org/autodownload?file=mini-van-0.3.7.min.js), [`mini-van-0.3.7.nomodule.min.js`](https://vanjs.org/autodownload?file=mini-van-0.3.7.nomodule.min.js)) and serve them locally.
+Alternative, you can download the files ([`mini-van-0.3.7.min.js`](https://vanjs.org/autodownload?file=mini-van-0.3.7.min.js), [`mini-van-0.3.7.nomodule.min.js`](https://vanjs.org/autodownload?file=mini-van-0.3.7.nomodule.min.js)) and serve them locally.
 
 You can find all relevant **Mini-Van** files in this [Download Table](https://vanjs.org/minivan#download-table).
 
