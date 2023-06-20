@@ -9,30 +9,30 @@
         throw new Error(`Assertion failed. Expected equal. Actual lhs: ${lhs}, rhs: ${rhs}`);
     };
     const tests = {
-      tagsTest_basic: () => {
+      tags_basic: () => {
         const dom = div2(p("\u{1F44B}Hello"), ul(li("\u{1F5FA}\uFE0FWorld"), li(a({ href: "https://vanjs.org/" }, "\u{1F366}VanJS"))));
         assertEq(dom.outerHTML, '<div><p>\u{1F44B}Hello</p><ul><li>\u{1F5FA}\uFE0FWorld</li><li><a href="https://vanjs.org/">\u{1F366}VanJS</a></li></ul></div>');
       },
-      tagsTest_onclickHandler: () => {
+      tags_onclickHandler: () => {
         const dom = div2(button({ onclick: () => add(dom, p("Button clicked!")) }));
         dom.querySelector("button").click();
         assertEq(dom.outerHTML, "<div><button></button><p>Button clicked!</p></div>");
       },
-      tagsTest_escape: () => {
+      tags_escape: () => {
         assertEq(p("<input>").outerHTML, "<p>&lt;input&gt;</p>");
         assertEq(div2("a && b").outerHTML, "<div>a &amp;&amp; b</div>");
         assertEq(div2("<input a && b>").outerHTML, "<div>&lt;input a &amp;&amp; b&gt;</div>");
       },
-      tagsTest_nestedChildren: () => {
+      tags_nestedChildren: () => {
         assertEq(ul([li("Item 1"), li("Item 2"), li("Item 3")]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
         assertEq(ul([[li("Item 1"), [li("Item 2")]], li("Item 3")]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
       },
-      tagsTest_nullOrUndefinedAreIgnored: () => {
+      tags_nullOrUndefinedAreIgnored: () => {
         assertEq(ul(li("Item 1"), li("Item 2"), void 0, li("Item 3"), null).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
         assertEq(ul([li("Item 1"), li("Item 2"), void 0, li("Item 3"), null]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
         assertEq(ul([[void 0, li("Item 1"), null, [li("Item 2")]], null, li("Item 3"), void 0]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
       },
-      addTest_basic: () => {
+      add_basic: () => {
         const dom = ul();
         assertEq(add(dom, li("Item 1"), li("Item 2")), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li></ul>");
@@ -41,7 +41,7 @@
         assertEq(add(dom), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li></ul>");
       },
-      addTest_nestedChildren: () => {
+      add_nestedChildren: () => {
         const dom = ul();
         assertEq(add(dom, [li("Item 1"), li("Item 2")]), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li></ul>");
@@ -50,7 +50,7 @@
         assertEq(add(dom, [[[]]]), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li></ul>");
       },
-      addTest_nullOrUndefinedAreIgnored: () => {
+      add_nullOrUndefinedAreIgnored: () => {
         const dom = ul();
         assertEq(add(dom, li("Item 1"), li("Item 2"), void 0, li("Item 3"), null), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
@@ -59,7 +59,7 @@
         assertEq(add(dom, [[void 0, li("Item 7"), null, [li("Item 8")]], null, li("Item 9"), void 0]), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li><li>Item 6</li><li>Item 7</li><li>Item 8</li><li>Item 9</li></ul>");
       },
-      htmlTest: () => {
+      html: () => {
         assertEq(html(head(title("Hello")), body(div2("World"))), "<!DOCTYPE html><html><head><title>Hello</title></head><body><div>World</div></body></html>");
         assertEq(html({ lang: "en" }, head(title("Hello")), body(div2("World"))), '<!DOCTYPE html><html lang="en"><head><title>Hello</title></head><body><div>World</div></body></html>');
       }
