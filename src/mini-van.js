@@ -6,14 +6,9 @@
 let Obj = Object, _undefined
 
 let vanWithDoc = doc => {
-  let toDom = v => v.nodeType ? v : doc.createTextNode(v)
-
   let _result = {
-    add: (dom, ...children) => {
-      for (let child of children.flat(Infinity))
-        if (child != _undefined) dom.appendChild(toDom(child))
-      return dom
-    },
+    add: (dom, ...children) =>
+      (dom.append(...children.flat(Infinity).filter(c => c != _undefined)), dom),
 
     tags: new Proxy((name, ...args) => {
       let [props, ...children] = args[0]?.constructor === Obj ? args : [{}, ...args]
