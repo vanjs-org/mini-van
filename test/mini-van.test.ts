@@ -4,7 +4,7 @@ import type {Van} from "../src/mini-van.d.ts"
 
 const runTests = (vanObj: Van, msgDom: Element) => {
   const {add, tags, html} = vanObj
-  const {a, body, button, div, head, li, p, pre, title, ul} = tags
+  const {a, body, button, div, head, input, li, p, pre, title, ul} = tags
 
   const assertEq = (lhs: string | Element, rhs: string | Element) => {
     if (lhs !== rhs) throw new Error(`Assertion failed. Expected equal. Actual lhs: ${lhs}, rhs: ${rhs}`)
@@ -53,6 +53,10 @@ const runTests = (vanObj: Van, msgDom: Element) => {
       // Deeply nested
       assertEq(ul([[undefined, li("Item 1"), null, [li("Item 2")]], null, li("Item 3"), undefined]).outerHTML,
         "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>")
+    },
+
+    tags_readonlyProps: () => {
+      assertEq(input({list: "datalist1"}).outerHTML, '<input list="datalist1">')
     },
 
     add_basic: () => {

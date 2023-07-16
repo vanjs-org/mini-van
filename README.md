@@ -1,6 +1,6 @@
 # **Mini-Van**: A Minimalist Template Engine for Client/Server-side Rendering without JSX
 
-**Mini-Van** is an ***ultra-lightweight*** template engine for DOM composition and manipulation. With only 0.4kB in the minified bundle size (0.3kB gzipped), **Mini-Van** enables you to build comprehensive UI with elegant and expressive vanilla JavaScript code:
+**Mini-Van** is an ***ultra-lightweight*** template engine for DOM composition and manipulation. With only 0.5kB in the minified bundle size (0.4kB gzipped), **Mini-Van** enables you to build comprehensive UI with elegant and expressive vanilla JavaScript code:
 
 ```javascript
 // Reusable components can be just pure vanilla JavaScript functions.
@@ -22,7 +22,7 @@ van.add(document.body, Hello())
 
 You can convert any HTML snippet into **Mini-Van** code with our online [converter](https://vanjs.org/convert).
 
-**Mini-Van** is the slimmed-down version of [**VanJS**](https://vanjs.org), which aims to provide an ***ultra-lightweight***, ***zero-dependency***, and ***unopinionated*** Reactive UI framework based on pure vanilla JavaScript and DOM. Compared to **VanJS**, **Mini-Van** further reduces the gzipped minified bundle size to 0.3kB and can be used on the server-side as a [template engine](https://en.wikipedia.org/wiki/Web_template_system).
+**Mini-Van** is the slimmed-down version of [**VanJS**](https://vanjs.org), which aims to provide an ***ultra-lightweight***, ***zero-dependency***, and ***unopinionated*** Reactive UI framework based on pure vanilla JavaScript and DOM. Compared to **VanJS**, **Mini-Van** further reduces the gzipped minified bundle size to 0.4kB and can be used on the server-side as a [template engine](https://en.wikipedia.org/wiki/Web_template_system).
 
 ## Server-Side: Npm Integration
 
@@ -148,7 +148,7 @@ Similarly, **Mini-Van** can work with Deno as well, in both `van-plate` mode and
 Sample code:
 ```typescript
 import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
-import van from "https://deno.land/x/minivan@0.3.8/src/van-plate.js"
+import van from "https://deno.land/x/minivan@0.3.9/src/van-plate.js"
 
 const {a, body, li, p, ul} = van.tags
 
@@ -186,7 +186,7 @@ Sample code:
 ```typescript
 import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-import van from "https://deno.land/x/minivan@0.3.8/src/mini-van.js"
+import van from "https://deno.land/x/minivan@0.3.9/src/mini-van.js"
 
 const document = new DOMParser().parseFromString("", "text/html")!
 const {tags, html} = van.vanWithDoc(document)
@@ -224,16 +224,16 @@ await serve(req => new Response(
 To get started on the client side, add the line below to your script:
 
 ```javascript
-import van from "https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.3.8.min.js"
+import van from "https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.3.9.min.js"
 ```
 
 To code without ES6 modules, add the following line to your HTML file instead:
 
 ```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.3.8.nomodule.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.3.9.nomodule.min.js"></script>
 ```
 
-Alternative, you can download the files ([`mini-van-0.3.8.min.js`](https://vanjs.org/autodownload?file=mini-van-0.3.8.min.js), [`mini-van-0.3.8.nomodule.min.js`](https://vanjs.org/autodownload?file=mini-van-0.3.8.nomodule.min.js)) and serve them locally.
+Alternative, you can download the files ([`mini-van-0.3.9.min.js`](https://vanjs.org/autodownload?file=mini-van-0.3.9.min.js), [`mini-van-0.3.9.nomodule.min.js`](https://vanjs.org/autodownload?file=mini-van-0.3.9.nomodule.min.js)) and serve them locally.
 
 You can find all relevant **Mini-Van** files in this [Download Table](https://vanjs.org/minivan#download-table).
 

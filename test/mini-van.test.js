@@ -1,7 +1,7 @@
 window.numTests = 0;
 const runTests = (vanObj, msgDom) => {
     const { add, tags, html } = vanObj;
-    const { a, body, button, div, head, li, p, pre, title, ul } = tags;
+    const { a, body, button, div, head, input, li, p, pre, title, ul } = tags;
     const assertEq = (lhs, rhs) => {
         if (lhs !== rhs)
             throw new Error(`Assertion failed. Expected equal. Actual lhs: ${lhs}, rhs: ${rhs}`);
@@ -31,6 +31,9 @@ const runTests = (vanObj, msgDom) => {
             assertEq(ul([li("Item 1"), li("Item 2"), undefined, li("Item 3"), null]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
             // Deeply nested
             assertEq(ul([[undefined, li("Item 1"), null, [li("Item 2")]], null, li("Item 3"), undefined]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
+        },
+        tags_readonlyProps: () => {
+            assertEq(input({ list: "datalist1" }).outerHTML, '<input list="datalist1">');
         },
         add_basic: () => {
             const dom = ul();
