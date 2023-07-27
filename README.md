@@ -24,7 +24,7 @@ You can convert any HTML snippet into **Mini-Van** code with our online [convert
 
 **Mini-Van** is the slimmed-down version of [**VanJS**](https://vanjs.org), which aims to provide an ***ultra-lightweight***, ***zero-dependency***, and ***unopinionated*** Reactive UI framework based on pure vanilla JavaScript and DOM. Compared to **VanJS**, **Mini-Van** further reduces the gzipped minified bundle size to 0.4kB and can be used on the server-side as a [template engine](https://en.wikipedia.org/wiki/Web_template_system).
 
-## Server-Side: Npm Integration
+## Server-Side: NPM Integration
 
 **Mini-Van** can be used on the server side as a template engine to render dynamic web content for HTTP servers. An NPM package was published here: [www.npmjs.com/package/mini-van-plate](https://www.npmjs.com/package/mini-van-plate). Thus it can be used in [Node.js](https://nodejs.org/) or [Bun](https://bun.sh/).
 
