@@ -1,5 +1,4 @@
 node_modules/
-package-lock.json
 public/*.gz
 test/test.ts
 test/test.js
