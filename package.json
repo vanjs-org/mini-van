@@ -33,10 +33,10 @@
   "author": "Tao Xin",
   "license": "MIT",
   "devDependencies": {
-    "esbuild": "^0.17.12",
+    "esbuild": "^0.17.19",
     "node-jq": "^2.3.5",
-    "terser": "^5.17.1",
-    "typescript": "^5.0.4"
+    "terser": "^5.19.2",
+    "typescript": "^5.1.6"
   },
   "repository": {
     "type": "git",
