@@ -50,7 +50,7 @@ const hostname = '127.0.0.1'
 const port = 8080
 
 console.log("Testing DOM rendering...")
-// Expecting `<a href="https://vanjs.org/">🍦VanJS</a>` in the console
+// Expecting `<a href="https://vanjs.org/">🍦VanJS</a>` printed in the console
 console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").render())
 
 const server = http.createServer((req, res) => {
@@ -71,6 +71,8 @@ const server = http.createServer((req, res) => {
 server.listen(port, hostname, () =>
   console.log(`Server running at http://${hostname}:${port}/`))
 ```
+
+Preview via [CodeSandbox](https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/sitegen/node-examples/van-plate-server?file=/van-plate-server.mjs:1,1).
 
 As illustrated in the example, `render` method can be called on the object returned from the [`tag function`](https://vanjs.org/tutorial#api-tags) to generate a `string` that can be used for serving.
 
@@ -133,6 +135,8 @@ server.listen(port, hostname, () =>
   console.log(`Server running at http://${hostname}:${port}/`))
 ```
 
+Preview via [CodeSandbox](https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/sitegen/node-examples/mini-van-server?file=/mini-van-server.mjs:1,1).
+
 Similar to `van-plate` mode, we have a helper function `html` defined in `mini-van.js` which is equivalent to:
 
 ```javascript
@@ -146,8 +150,10 @@ Similarly, **Mini-Van** can work with Deno as well, in both `van-plate` mode and
 ### `van-plate` mode
 
 Sample code:
+
+_Requires Deno `1.35` or later._
+
 ```typescript
-import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
 import van from "https://deno.land/x/minivan@0.3.9/src/van-plate.js"
 
 const {a, body, li, p, ul} = van.tags
@@ -155,11 +161,11 @@ const {a, body, li, p, ul} = van.tags
 const port = 8080
 
 console.log("Testing DOM rendering...")
-// Expecting `<a href="https://vanjs.org/">🍦VanJS</a>` in the console
+// Expecting `<a href="https://vanjs.org/">🍦VanJS</a>` printed in the console
 console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").render())
 
 console.log(`HTTP webserver running. Access it at: http://localhost:${port}/`)
-await serve(req => new Response(
+Deno.serve({port}, req => new Response(
   van.html(
     body(
       p("Your user-agent is: ", req.headers.get("user-agent") ?? "Unknown"),
@@ -174,8 +180,10 @@ await serve(req => new Response(
     status: 200,
     headers: {"content-type": "text/html; charset=utf-8"},
   },
-), {port})
+))
 ```
+
+Preview via [CodeSandbox](https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/sitegen/deno-examples/van-plate-server?file=/van-plate-server.ts:1,1).
 
 ### `mini-van` mode
 
@@ -183,8 +191,9 @@ Likewise, `mini-van` mode needs a 3rd-party DOM library to provide the `Document
 
 Sample code:
 
+_Requires Deno `1.35` or later._
+
 ```typescript
-import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 import van from "https://deno.land/x/minivan@0.3.9/src/mini-van.js"
 
@@ -201,7 +210,7 @@ const anchorDom = a({href: "https://vanjs.org/"}, "🍦VanJS")
 console.log(anchorDom.outerHTML)
 
 console.log(`HTTP webserver running. Access it at: http://localhost:${port}/`)
-await serve(req => new Response(
+Deno.serve({port}, req => new Response(
   html(
     body(
       p("Your user-agent is: ", req.headers.get("user-agent") ?? "Unknown"),
@@ -216,8 +225,10 @@ await serve(req => new Response(
     status: 200,
     headers: {"content-type": "text/html; charset=utf-8"},
   },
-), {port})
+))
 ```
+
+Preview via [CodeSandbox](https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/sitegen/deno-examples/mini-van-server?file=/mini-van-server.ts:1,1).
 
 ## Client-Side: Getting Started
 
