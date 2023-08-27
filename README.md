@@ -158,7 +158,7 @@ import van from "https://deno.land/x/minivan@0.3.9/src/van-plate.js"
 
 const {a, body, li, p, ul} = van.tags
 
-const port = 8081
+const port = 8080
 
 console.log("Testing DOM rendering...")
 // Expecting `<a href="https://vanjs.org/">🍦VanJS</a>` printed in the console
