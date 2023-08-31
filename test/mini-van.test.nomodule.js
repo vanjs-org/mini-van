@@ -1,9 +1,8 @@
 (() => {
   // ../test/mini-van.test.js
   window.numTests = 0;
-  var runTests = (vanObj, msgDom2) => {
-    const { add, tags, html } = vanObj;
-    const { a, body, button, div: div2, head, input, li, p, pre, title, ul } = tags;
+  var runTests = (van2, msgDom2) => {
+    const { a, body, button, div: div2, head, input, li, p, pre, span, title, ul } = van2.tags;
     const assertEq = (lhs, rhs) => {
       if (lhs !== rhs)
         throw new Error(`Assertion failed. Expected equal. Actual lhs: ${lhs}, rhs: ${rhs}`);
@@ -14,9 +13,14 @@
         assertEq(dom.outerHTML, '<div><p>\u{1F44B}Hello</p><ul><li>\u{1F5FA}\uFE0FWorld</li><li><a href="https://vanjs.org/">\u{1F366}VanJS</a></li></ul></div>');
       },
       tags_onclickHandler: () => {
-        const dom = div2(button({ onclick: () => add(dom, p("Button clicked!")) }));
-        dom.querySelector("button").click();
-        assertEq(dom.outerHTML, "<div><button></button><p>Button clicked!</p></div>");
+        {
+          const dom = div2(button({ onclick: 'alert("Hello")' }, "Click me"));
+          assertEq(dom.outerHTML, '<div><button onclick="alert(&quot;Hello&quot;)">Click me</button></div>');
+        }
+        {
+          const dom = div2(button({ onclick: () => alert("Hello") }, "Click me"));
+          assertEq(dom.outerHTML, "<div><button>Click me</button></div>");
+        }
       },
       tags_escape: () => {
         assertEq(p("<input>").outerHTML, "<p>&lt;input&gt;</p>");
@@ -37,43 +41,74 @@
       },
       add_basic: () => {
         const dom = ul();
-        assertEq(add(dom, li("Item 1"), li("Item 2")), dom);
+        assertEq(van2.add(dom, li("Item 1"), li("Item 2")), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li></ul>");
-        add(dom, li("Item 3"), li("Item 4"), li("Item 5"));
+        van2.add(dom, li("Item 3"), li("Item 4"), li("Item 5"));
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li></ul>");
-        assertEq(add(dom), dom);
+        assertEq(van2.add(dom), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li></ul>");
       },
       add_nestedChildren: () => {
         const dom = ul();
-        assertEq(add(dom, [li("Item 1"), li("Item 2")]), dom);
+        assertEq(van2.add(dom, [li("Item 1"), li("Item 2")]), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li></ul>");
-        assertEq(add(dom, [[li("Item 3"), [li("Item 4")]], li("Item 5")]), dom);
+        assertEq(van2.add(dom, [[li("Item 3"), [li("Item 4")]], li("Item 5")]), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li></ul>");
-        assertEq(add(dom, [[[]]]), dom);
+        assertEq(van2.add(dom, [[[]]]), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li></ul>");
       },
       add_nullOrUndefinedAreIgnored: () => {
         const dom = ul();
-        assertEq(add(dom, li("Item 1"), li("Item 2"), void 0, li("Item 3"), null), dom);
+        assertEq(van2.add(dom, li("Item 1"), li("Item 2"), void 0, li("Item 3"), null), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
-        assertEq(add(dom, [li("Item 4"), li("Item 5"), void 0, li("Item 6"), null]), dom);
+        assertEq(van2.add(dom, [li("Item 4"), li("Item 5"), void 0, li("Item 6"), null]), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li><li>Item 6</li></ul>");
-        assertEq(add(dom, [[void 0, li("Item 7"), null, [li("Item 8")]], null, li("Item 9"), void 0]), dom);
+        assertEq(van2.add(dom, [[void 0, li("Item 7"), null, [li("Item 8")]], null, li("Item 9"), void 0]), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li><li>Item 6</li><li>Item 7</li><li>Item 8</li><li>Item 9</li></ul>");
       },
+      tagsNS_svg: () => {
+        const { circle, path: path2, svg } = van2.tagsNS("http://www.w3.org/2000/svg");
+        const dom = svg({ width: "16px", viewBox: "0 0 50 50" }, circle({ cx: "25", cy: "25", "r": "20", stroke: "black", "stroke-width": "2", fill: "yellow" }), circle({ cx: "16", cy: "20", "r": "2", stroke: "black", "stroke-width": "2", fill: "black" }), circle({ cx: "34", cy: "20", "r": "2", stroke: "black", "stroke-width": "2", fill: "black" }), path2({ "d": "M 15 30 Q 25 40, 35 30", stroke: "black", "stroke-width": "2", fill: "transparent" }));
+        assertEq(dom.outerHTML, '<svg width="16px" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" stroke="black" stroke-width="2" fill="yellow"></circle><circle cx="16" cy="20" r="2" stroke="black" stroke-width="2" fill="black"></circle><circle cx="34" cy="20" r="2" stroke="black" stroke-width="2" fill="black"></circle><path d="M 15 30 Q 25 40, 35 30" stroke="black" stroke-width="2" fill="transparent"></path></svg>');
+      },
+      tagsNS_math: () => {
+        const { math, mi, mn, mo, mrow, msup } = van2.tagsNS("http://www.w3.org/1998/Math/MathML");
+        const dom = math(msup(mi("e"), mrow(mi("i"), mi("\u03C0"))), mo("+"), mn("1"), mo("="), mn("0"));
+        assertEq(dom.outerHTML, "<math><msup><mi>e</mi><mrow><mi>i</mi><mi>\u03C0</mi></mrow></msup><mo>+</mo><mn>1</mn><mo>=</mo><mn>0</mn></math>");
+      },
+      // Validates the dummy behavior of reactive APIs works in Mini-Van
+      dummyReactive: () => {
+        const state1 = van2.state(1), state2 = van2.derive(() => state1.val * 2);
+        const state3 = van2.state("abc"), state4 = van2.derive(() => state3.val.repeat(2));
+        const state5 = van2.state(false), state6 = van2.derive(() => !state5.val);
+        const dom = div2(state1, span(state2), p(() => `Prefix - ${state3.val}`), () => `${state4.oldVal} - Suffix`, p({
+          "data-index": state1,
+          "data-id": () => van2.val(state2) + 2,
+          "data-title": state3,
+          "data-text": () => `${van2.val("Prefix")} - ${van2.oldVal(state4)} - ${van2.oldVal("Suffix")}`
+        }, () => state1.val, () => state2.oldVal, () => van2.val(state3), () => van2.val(state4)), button({ onclick: van2._(() => state5.val ? 'console.log("Hello")' : 'alert("Hello")') }, "Button1"), button({ onclick: van2._(() => state6.val ? () => console.log("Hello") : () => alert("Hello")) }, "Button2"), () => (state5.val ? pre : div2)(state3), () => (state6.oldVal ? pre : div2)(state4));
+        assertEq(dom.outerHTML, '<div>1<span>2</span><p>Prefix - abc</p>abcabc - Suffix<p data-index="1" data-id="4" data-title="abc" data-text="Prefix - abcabc - Suffix">12abcabcabc</p><button onclick="alert(&quot;Hello&quot;)">Button1</button><button>Button2</button><div>abc</div><pre>abcabc</pre></div>');
+      },
       html: () => {
-        assertEq(html(head(title("Hello")), body(div2("World"))), "<!DOCTYPE html><html><head><title>Hello</title></head><body><div>World</div></body></html>");
-        assertEq(html({ lang: "en" }, head(title("Hello")), body(div2("World"))), '<!DOCTYPE html><html lang="en"><head><title>Hello</title></head><body><div>World</div></body></html>');
+        assertEq(van2.html(head(title("Hello")), body(div2("World"))), "<!DOCTYPE html><html><head><title>Hello</title></head><body><div>World</div></body></html>");
+        assertEq(van2.html({ lang: "en" }, head(title("Hello")), body(div2("World"))), '<!DOCTYPE html><html lang="en"><head><title>Hello</title></head><body><div>World</div></body></html>');
       }
     };
-    const suites = { tests };
+    const examples = {
+      miniVanServer: () => {
+        assertEq(a({ href: "https://vanjs.org/" }, "\u{1F366}VanJS").outerHTML, `<a href="https://vanjs.org/">\u{1F366}VanJS</a>`);
+        assertEq(button({ onclick: 'alert("Hello")' }, "Click").outerHTML, `<button onclick="alert(&quot;Hello&quot;)">Click</button>`);
+        assertEq(input({ type: "text", value: "value" }).outerHTML, `<input type="text" value="value">`);
+      }
+    };
+    const suites = { tests, examples };
     for (const [k, v] of Object.entries(suites)) {
       for (const [name, func] of Object.entries(v)) {
         ++window.numTests;
         const resultPre = pre();
         const msgPre = pre();
-        add(msgDom2, div2(pre(`Running ${k}.${name}...`), resultPre, pre(" "), pre(button({ onclick: () => {
+        const buttonDom = button("Rerun this test");
+        buttonDom.onclick = () => {
           try {
             func();
             resultPre.innerText = "\u2705";
@@ -83,13 +118,14 @@
             msgPre.innerText = "Rerun failed!";
             throw e;
           }
-        } }, "Rerun this test")), pre(" "), msgPre));
+        };
+        van2.add(msgDom2, div2(pre(`Running ${k}.${name}...`), resultPre, pre(" "), buttonDom, pre(" "), msgPre));
         try {
           func();
           resultPre.innerText = "\u2705";
         } catch (e) {
           resultPre.innerText = "\u274C";
-          add(msgDom2, div2({ style: "color: red" }, "Test failed, please check console for error message."));
+          van2.add(msgDom2, div2({ style: "color: red" }, "Test failed, please check console for error message."));
           throw e;
         }
       }

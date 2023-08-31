@@ -8,10 +8,10 @@ cp mini-van.js ../public/mini-van-$VER.js
 cp mini-van.d.ts ../public/mini-van-$VER.d.ts
 npx esbuild mini-van.forbundle.js --bundle --outfile=../public/mini-van-$VER.nomodule.js
 
-npx terser mini-van.js --compress --toplevel --mangle --mangle-props keep_quoted -f wrap_func_args=false -o ../public/mini-van-$VER.min.js
+npx terser mini-van.js --compress --toplevel --mangle --mangle-props regex=/^_.+/ -f wrap_func_args=false -o ../public/mini-van-$VER.min.js
 gzip -kf ../public/mini-van-$VER.min.js
 cp mini-van.d.ts ../public/mini-van-$VER.min.d.ts
-MIN_NOMODULE=$(npx terser ../public/mini-van-$VER.nomodule.js --compress --toplevel --mangle --mangle-props keep_quoted -f wrap_func_args=false)
+MIN_NOMODULE=$(npx terser ../public/mini-van-$VER.nomodule.js --compress --toplevel --mangle --mangle-props regex=/^_.+/ -f wrap_func_args=false)
 echo -n "{let${MIN_NOMODULE:3}}" > ../public/mini-van-$VER.nomodule.min.js
 # echo -n "$MIN_NOMODULE" > ../public/mini-van-$VER.nomodule.min.js
 

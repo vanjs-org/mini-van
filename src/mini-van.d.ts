@@ -1,24 +1,38 @@
-export type Primitive = string | number | boolean | bigint
-
-export type PropValue = Primitive | Function | null
-
-export interface Props {
-  readonly [key: string]: PropValue
+export interface State<T> {
+  val: T
+  readonly oldVal: T
 }
 
-export type ChildDom<ElementType, TextNodeType> = Primitive | ElementType | TextNodeType
-  | readonly ChildDom<ElementType, TextNodeType>[] | null | undefined
+// Defining readonly view of State<T> for covariance.
+// Basically we want StateView<string> to implement StateView<string | number>
+export type StateView<T> = Readonly<State<T>>
+
+export type Primitive = string | number | boolean | bigint
+
+export type PropValue = Primitive | null
+
+export type Props = Record<string, PropValue | StateView<PropValue> | (() => PropValue)>
+
+export type ValidChildDomValue<ElementType, TextNodeType> =
+  Primitive | ElementType | TextNodeType | null | undefined
+
+export type BindingFunc<ElementType, TextNodeType> =
+  (dom: ElementType | TextNodeType) => ValidChildDomValue<ElementType, TextNodeType>
+
+export type ChildDom<ElementType, TextNodeType> =
+  | ValidChildDomValue<ElementType, TextNodeType>
+  | StateView<Primitive | null | undefined>
+  | BindingFunc<ElementType, TextNodeType>
+  | readonly ChildDom<ElementType, TextNodeType>[]
 
 type AddFunc<ElementType, TextNodeType> =
   (dom: ElementType, ...children: readonly ChildDom<ElementType, TextNodeType>[]) => ElementType
 
-export type TagFunc<ElementType = Element, TextNodeType = Text, ResultType = ElementType> =
+export type TagFunc<ElementType, TextNodeType, ResultType = ElementType> =
   (first?: Props | ChildDom<ElementType, TextNodeType>,
     ...rest: readonly ChildDom<ElementType, TextNodeType>[]) => ResultType
 
-interface Tags<ElementType, TextNodeType> {
-  readonly [key: string]: TagFunc<ElementType, TextNodeType>
-}
+type Tags<ElementType, TextNodeType> = Record<string, TagFunc<ElementType, TextNodeType>>
 
 // Tags type in browser context, which contains the signatures to tag functions that return
 // specialized DOM elements.
@@ -128,23 +142,27 @@ interface BrowserTags extends Tags<Element, Text> {
   readonly template: TagFunc<Element, Text, HTMLTemplateElement>
 }
 
-type VanWithDoc = <ElementType, TextNodeType>(
-  doc: {
-    createElement(s: any): ElementType,
-    createTextNode(s: any): TextNodeType,
-  }) => {
-  add: AddFunc<ElementType, TextNodeType>
-  tags: Tags<ElementType, TextNodeType>
+export interface VanObj<ElementType, TextNodeType> {
+  readonly state: <T>(initVal: T) => State<T>
+  readonly val: <T>(s: T | StateView<T>) => T
+  readonly oldVal: <T>(s: T | StateView<T>) => T
+  readonly derive: <T>(f: () => T) => State<T>
+  readonly add: AddFunc<ElementType, TextNodeType>
+  readonly _: (f: () => PropValue) => () => PropValue
+  readonly tags: Tags<ElementType, TextNodeType>
+  readonly tagsNS: (namespaceURI: string) => Tags<ElementType, TextNodeType>
+
+  // Mini-Van specific API
   html: (first?: Props | ChildDom<ElementType, TextNodeType>,
     ...rest: readonly ChildDom<ElementType, TextNodeType>[]) => string
 }
 
-export interface Van {
-  readonly vanWithDoc: VanWithDoc
-  readonly add: AddFunc<Element, Text>
+export interface Van extends VanObj<Element, Text> {
+  readonly vanWithDoc: <ElementType, TextNodeType>(doc: {
+    createElement(s: any): ElementType,
+    createTextNode(s: any): TextNodeType,
+  }) => VanObj<ElementType, TextNodeType>
   readonly tags: BrowserTags
-  html: (first?: Props | ChildDom<Element, Text>,
-    ...rest: readonly ChildDom<Element, Text>[]) => string
 }
 
 declare const van: Van

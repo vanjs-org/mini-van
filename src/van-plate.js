@@ -19,13 +19,28 @@ const noChild = {
   keygen: 1,
 }
 
-const escape = s => {
-  const map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-  }
-  return s.replace(/[&<>]/g, tag => map[tag] || tag)
+const escapeMap = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+}
+
+const escape = s => s.replace(/[&<>]/g, tag => escapeMap[tag] || tag)
+
+const escapeAttr = v => v.replace(/"/g, "&quot;")
+
+const protoOf = Object.getPrototypeOf, funcProto = protoOf(protoOf), objProto = protoOf(noChild)
+
+const stateProto = {get oldVal() { return this.val }}
+
+const state = initVal => ({__proto__: stateProto, val: initVal})
+
+const val = s => protoOf(s ?? 0) === stateProto ? s.val : s
+
+const plainValue = (v, k) => {
+  let protoOfV = protoOf(v ?? 0)
+  return protoOfV === stateProto ? v.val :
+    protoOfV === funcProto && (!k?.startsWith("on") || v._isBindingFunc) ? v() : v
 }
 
 const elementProto = {
@@ -37,14 +52,20 @@ const elementProto = {
 }
 
 const toStr = children => children.map(
-  c => Object.getPrototypeOf(c) === elementProto ? c.render() : escape(c.toString())).join("")
+  c => {
+    const plainC = plainValue(c)
+    return protoOf(plainC) === elementProto ? plainC.render() : escape(plainC.toString())
+  }).join("")
 
 const tags = new Proxy((name, ...args) => {
-  const [props, ...children] = Object.getPrototypeOf(args[0] ?? 0) === Object.prototype ?
-    args : [{}, ...args]
-  const propsStr = Object.entries(props).map(([k, v]) =>
-    typeof v === "boolean" ?
-    (v ? " " + k : "") : ` ${k}=${JSON.stringify(v)}`).join("")
+  const [props, ...children] = protoOf(args[0] ?? 0) === objProto ? args : [{}, ...args]
+  const propsStr = Object.entries(props).map(([k, v]) => {
+    const plainV = plainValue(v, k)
+    return typeof plainV === "boolean" ? (plainV ? " " + k : "") :
+      // Disable setting attribute for function-valued properties (mostly event handlers),
+      // as they're usually not useful for SSR (server-side rendering).
+      protoOf(plainV) !== funcProto ? ` ${k}=${JSON.stringify(escapeAttr(plainV.toString()))}` : ""
+  }).join("")
   const flattenedChildren = children.flat(Infinity).filter(c => c != null)
   return {__proto__: elementProto, name, propsStr,
     childrenStrs: flattenedChildren.length > 0 ? [toStr(flattenedChildren)] : []}
@@ -56,6 +77,8 @@ const add = (dom, ...children) => {
   return dom
 }
 
-const html = (...args) => "<!DOCTYPE html>" + tags.html(...args).render()
-
-export default {add, tags, html}
+export default {
+  add, _: f => (f._isBindingFunc = 1, f), tags, tagsNS: () => tags, state,
+  val, oldVal: val, derive: f => state(f()),
+  html: (...args) => "<!DOCTYPE html>" + tags.html(...args).render()
+}
