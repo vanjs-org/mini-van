@@ -160,3 +160,11 @@ Deno.test("html", () => {
     body(div("World")),
   ), '<!DOCTYPE html><html lang="en"><head><title>Hello</title></head><body><div>World</div></body></html>')
 })
+
+// Test cases for examples used in the documentation. Having the tests to ensure the examples
+// are always correct.
+Deno.test("example: van-plate-server", () => {
+  assertEquals(a({href: "https://vanjs.org/"}, "🍦VanJS").render(), `<a href="https://vanjs.org/">🍦VanJS</a>`)
+  assertEquals(button({onclick: 'alert("Hello")'}, "Click").render(), `<button onclick="alert(&quot;Hello&quot;)">Click</button>`)
+  assertEquals(input({type: "text", value: "value"}).render(), `<input type="text" value="value">`)
+})
