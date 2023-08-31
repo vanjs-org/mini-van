@@ -18,6 +18,10 @@
           assertEq(dom.outerHTML, '<div><button onclick="alert(&quot;Hello&quot;)">Click me</button></div>');
         }
         {
+          const dom = div2(button({ onClick: 'alert("Hello")' }, "Click me"));
+          assertEq(dom.outerHTML, '<div><button onclick="alert(&quot;Hello&quot;)">Click me</button></div>');
+        }
+        {
           const dom = div2(button({ onclick: () => alert("Hello") }, "Click me"));
           assertEq(dom.outerHTML, "<div><button>Click me</button></div>");
         }

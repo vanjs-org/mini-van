@@ -16,6 +16,10 @@ const runTests = (van, msgDom) => {
                 assertEq(dom.outerHTML, '<div><button onclick="alert(&quot;Hello&quot;)">Click me</button></div>');
             }
             {
+                const dom = div(button({ onClick: 'alert("Hello")' }, "Click me"));
+                assertEq(dom.outerHTML, '<div><button onclick="alert(&quot;Hello&quot;)">Click me</button></div>');
+            }
+            {
                 // Function-valued onclick handler will be skipped
                 const dom = div(button({ onclick: (() => alert("Hello")) }, "Click me"));
                 assertEq(dom.outerHTML, '<div><button>Click me</button></div>');

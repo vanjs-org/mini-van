@@ -99,6 +99,11 @@ Deno.test("onclick handler", () => {
   }
 
   {
+    const dom = div(button({onClick: 'alert("Hello")'}, "Click me"))
+    assertEquals(dom.render(), '<div><button onclick="alert(&quot;Hello&quot;)">Click me</button></div>')
+  }
+
+  {
     // Function-valued onclick handler will be skipped
     // deno-lint-ignore no-explicit-any
     const dom = div(button({onclick: <any>(() => alert("Hello"))}, "Click me"))
@@ -114,7 +119,7 @@ Deno.test("tagsNS: svg", () => {
     circle({cx: "34", cy: "20", "r": "2", stroke: "black", "stroke-width": "2", fill: "black"}),
     path({"d": "M 15 30 Q 25 40, 35 30", stroke: "black", "stroke-width": "2", fill: "transparent"}),
   )
-  assertEquals(dom.render(), '<svg width="16px" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" stroke="black" stroke-width="2" fill="yellow"></circle><circle cx="16" cy="20" r="2" stroke="black" stroke-width="2" fill="black"></circle><circle cx="34" cy="20" r="2" stroke="black" stroke-width="2" fill="black"></circle><path d="M 15 30 Q 25 40, 35 30" stroke="black" stroke-width="2" fill="transparent"></path></svg>')
+  assertEquals(dom.render(), '<svg width="16px" viewbox="0 0 50 50"><circle cx="25" cy="25" r="20" stroke="black" stroke-width="2" fill="yellow"></circle><circle cx="16" cy="20" r="2" stroke="black" stroke-width="2" fill="black"></circle><circle cx="34" cy="20" r="2" stroke="black" stroke-width="2" fill="black"></circle><path d="M 15 30 Q 25 40, 35 30" stroke="black" stroke-width="2" fill="transparent"></path></svg>')
 })
 
 Deno.test("tagsNS: math", () => {

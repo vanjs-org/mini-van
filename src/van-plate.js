@@ -60,11 +60,11 @@ const toStr = children => children.map(
 const tags = new Proxy((name, ...args) => {
   const [props, ...children] = protoOf(args[0] ?? 0) === objProto ? args : [{}, ...args]
   const propsStr = Object.entries(props).map(([k, v]) => {
-    const plainV = plainValue(v, k)
-    return typeof plainV === "boolean" ? (plainV ? " " + k : "") :
+    const plainV = plainValue(v, k), lowerK = k.toLowerCase()
+    return typeof plainV === "boolean" ? (plainV ? " " + lowerK : "") :
       // Disable setting attribute for function-valued properties (mostly event handlers),
       // as they're usually not useful for SSR (server-side rendering).
-      protoOf(plainV) !== funcProto ? ` ${k}=${JSON.stringify(escapeAttr(plainV.toString()))}` : ""
+      protoOf(plainV) !== funcProto ? ` ${lowerK}=${JSON.stringify(escapeAttr(plainV.toString()))}` : ""
   }).join("")
   const flattenedChildren = children.flat(Infinity).filter(c => c != null)
   return {__proto__: elementProto, name, propsStr,
