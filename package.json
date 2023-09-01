@@ -1,17 +1,20 @@
 {
   "name": "mini-van-plate",
-  "version": "0.4.0",
+  "version": "0.4.0-rc.4",
   "description": "A minimalist template engine for DOM generation and manipulation, working for both client-side and server-side rendering",
   "files": [
     "src/mini-van.js",
     "src/mini-van.d.ts",
     "src/van-plate.js",
-    "src/van-plate.d.ts"
+    "src/van-plate.d.ts",
+    "src/shared.js",
+    "src/shared.d.ts"
   ],
   "main": "src/mini-van.js",
   "exports": {
     ".": "./src/mini-van.js",
-    "./van-plate": "./src/van-plate.js"
+    "./van-plate": "./src/van-plate.js",
+    "./shared": "./src/shared.js"
   },
   "type": "module",
   "scripts": {

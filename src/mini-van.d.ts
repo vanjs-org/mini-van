@@ -9,7 +9,7 @@ export type StateView<T> = Readonly<State<T>>
 
 export type Primitive = string | number | boolean | bigint
 
-export type PropValue = Primitive | null
+export type PropValue = Primitive | ((e: any) => void) | null
 
 export type Props = Record<string, PropValue | StateView<PropValue> | (() => PropValue)>
 

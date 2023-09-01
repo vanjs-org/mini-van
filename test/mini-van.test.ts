@@ -35,7 +35,7 @@ const runTests = (van: Van, msgDom: Element) => {
 
       {
         // Function-valued onclick handler will be skipped
-        const dom = div(button({onclick: <any>(() => alert("Hello"))}, "Click me"))
+        const dom = div(button({onclick: () => alert("Hello")}, "Click me"))
         assertEq(dom.outerHTML, '<div><button>Click me</button></div>')
       }
     },
@@ -139,7 +139,7 @@ const runTests = (van: Van, msgDom: Element) => {
           "Button1"
         ),
         button({onclick: van._(
-          () => <any>(state6.val ? () => console.log("Hello") : () => alert("Hello")))},
+          () => state6.val ? () => console.log("Hello") : () => alert("Hello"))},
           "Button2"
         ),
         () => (state5.val ? pre : div)(state3),

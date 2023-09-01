@@ -21,7 +21,7 @@ const runTests = (van, msgDom) => {
             }
             {
                 // Function-valued onclick handler will be skipped
-                const dom = div(button({ onclick: (() => alert("Hello")) }, "Click me"));
+                const dom = div(button({ onclick: () => alert("Hello") }, "Click me"));
                 assertEq(dom.outerHTML, '<div><button>Click me</button></div>');
             }
         },
@@ -95,7 +95,7 @@ const runTests = (van, msgDom) => {
                 "data-id": () => van.val(state2) + 2,
                 "data-title": state3,
                 "data-text": () => `${van.val("Prefix")} - ${van.oldVal(state4)} - ${van.oldVal("Suffix")}`,
-            }, () => state1.val, () => state2.oldVal, () => van.val(state3), () => van.val(state4)), button({ onclick: van._(() => state5.val ? 'console.log("Hello")' : 'alert("Hello")') }, "Button1"), button({ onclick: van._(() => (state6.val ? () => console.log("Hello") : () => alert("Hello"))) }, "Button2"), () => (state5.val ? pre : div)(state3), () => (state6.oldVal ? pre : div)(state4));
+            }, () => state1.val, () => state2.oldVal, () => van.val(state3), () => van.val(state4)), button({ onclick: van._(() => state5.val ? 'console.log("Hello")' : 'alert("Hello")') }, "Button1"), button({ onclick: van._(() => state6.val ? () => console.log("Hello") : () => alert("Hello")) }, "Button2"), () => (state5.val ? pre : div)(state3), () => (state6.oldVal ? pre : div)(state4));
             assertEq(dom.outerHTML, '<div>1<span>2</span><p>Prefix - abc</p>abcabc - Suffix<p data-index="1" data-id="4" data-title="abc" data-text="Prefix - abcabc - Suffix">12abcabcabc</p><button onclick="alert(&quot;Hello&quot;)">Button1</button><button>Button2</button><div>abc</div><pre>abcabc</pre></div>');
         },
         html: () => {

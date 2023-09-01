@@ -1,5 +1,7 @@
 set -e
 
+npx tsc -d -m es2020 -t es2017 shared.ts
+
 # node-jq doesn't export a binary in node_modules/.bin/, thus we're using the fully qualified path here
 VER=$(../node_modules/node-jq/bin/jq -r '.version | split("-")[0]' ../package.json)
 echo -n $VER > ../public/mini-van.version

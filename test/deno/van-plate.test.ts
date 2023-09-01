@@ -105,8 +105,7 @@ Deno.test("onclick handler", () => {
 
   {
     // Function-valued onclick handler will be skipped
-    // deno-lint-ignore no-explicit-any
-    const dom = div(button({onclick: <any>(() => alert("Hello"))}, "Click me"))
+    const dom = div(button({onclick: () => alert("Hello")}, "Click me"))
     assertEquals(dom.render(), '<div><button>Click me</button></div>')
   }
 })
@@ -145,8 +144,7 @@ Deno.test("dummy reactive", () => {
       "Button1"
     ),
     button({onclick: van._(
-      // deno-lint-ignore no-explicit-any
-      () => <any>(state6.val ? () => console.log("Hello") : () => alert("Hello")))},
+      () => state6.val ? () => console.log("Hello") : () => alert("Hello"))},
       "Button2"
     ),
     () => (state5.val ? pre : div)(state3),
