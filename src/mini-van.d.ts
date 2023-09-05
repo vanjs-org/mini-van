@@ -17,7 +17,7 @@ export type ValidChildDomValue<ElementType, TextNodeType> =
   Primitive | ElementType | TextNodeType | null | undefined
 
 export type BindingFunc<ElementType, TextNodeType> =
-  (dom: ElementType | TextNodeType) => ValidChildDomValue<ElementType, TextNodeType>
+  (dom: ElementType | TextNodeType | undefined) => ValidChildDomValue<ElementType, TextNodeType>
 
 export type ChildDom<ElementType, TextNodeType> =
   | ValidChildDomValue<ElementType, TextNodeType>
