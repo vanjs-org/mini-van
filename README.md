@@ -135,7 +135,7 @@ server.listen(port, hostname, () =>
   console.log(`Server running at http://${hostname}:${port}/`))
 ```
 
-Preview via [CodeSandbox](https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/sitegen/node-examples/mini-van-server?file=/mini-van-server.mjs:1,1).
+Preview via [CodeSandbox](https://codesandbox.io/p/sandbox/eloquent-nova-s9km5j?file=/mini-van-server.mjs:1,1).
 
 Similar to `van-plate` mode, we have a helper function `html` defined in `mini-van.js` which is equivalent to:
 
@@ -183,7 +183,7 @@ Deno.serve({port}, req => new Response(
 ))
 ```
 
-Preview via [CodeSandbox](https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/sitegen/deno-examples/van-plate-server?file=/van-plate-server.ts:1,1).
+Preview via [CodeSandbox](https://codesandbox.io/p/sandbox/eloquent-bird-95rzff?file=/van-plate-server.ts:1,1).
 
 ### `mini-van` mode
 
@@ -228,7 +228,7 @@ Deno.serve({port}, req => new Response(
 ))
 ```
 
-Preview via [CodeSandbox](https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/sitegen/deno-examples/mini-van-server?file=/mini-van-server.ts:1,1).
+Preview via [CodeSandbox](https://codesandbox.io/p/sandbox/heuristic-browser-vtxh3c?file=/mini-van-server.ts:1,1).
 
 ## Client-Side: Getting Started
 
