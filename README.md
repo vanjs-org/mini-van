@@ -72,7 +72,7 @@ server.listen(port, hostname, () =>
   console.log(`Server running at http://${hostname}:${port}/`))
 ```
 
-Preview via [CodeSandbox](https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/sitegen/node-examples/van-plate-server?file=/van-plate-server.mjs:1,1).
+Preview via [CodeSandbox](https://codesandbox.io/p/sandbox/hopeful-perlman-rh7wvk?file=/van-plate-server.mjs:1,1).
 
 As illustrated in the example, `render` method can be called on the object returned from the [`tag function`](https://vanjs.org/tutorial#api-tags) to generate a `string` that can be used for serving.
 
