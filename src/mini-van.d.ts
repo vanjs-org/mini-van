@@ -17,7 +17,8 @@ export type ValidChildDomValue<ElementType, TextNodeType> =
   Primitive | ElementType | TextNodeType | null | undefined
 
 export type BindingFunc<ElementType, TextNodeType> =
-  (dom: ElementType | TextNodeType | undefined) => ValidChildDomValue<ElementType, TextNodeType>
+  | ((dom?: ElementType | TextNodeType) => ValidChildDomValue<ElementType, TextNodeType>)
+  | ((dom?: ElementType) => ElementType)
 
 export type ChildDom<ElementType, TextNodeType> =
   | ValidChildDomValue<ElementType, TextNodeType>
@@ -55,17 +56,30 @@ interface BrowserTags extends Tags<Element, Text> {
   readonly body: TagFunc<Element, Text, HTMLBodyElement>
 
   // Content sectioning
+  readonly address: TagFunc<Element, Text, HTMLElement>
+  readonly article: TagFunc<Element, Text, HTMLElement>
+  readonly aside: TagFunc<Element, Text, HTMLElement>
+  readonly footer: TagFunc<Element, Text, HTMLElement>
+  readonly header: TagFunc<Element, Text, HTMLElement>
   readonly h1: TagFunc<Element, Text, HTMLHeadingElement>
   readonly h2: TagFunc<Element, Text, HTMLHeadingElement>
   readonly h3: TagFunc<Element, Text, HTMLHeadingElement>
   readonly h4: TagFunc<Element, Text, HTMLHeadingElement>
   readonly h5: TagFunc<Element, Text, HTMLHeadingElement>
   readonly h6: TagFunc<Element, Text, HTMLHeadingElement>
+  readonly hgroup: TagFunc<Element, Text, HTMLElement>
+  readonly main: TagFunc<Element, Text, HTMLElement>
+  readonly nav: TagFunc<Element, Text, HTMLElement>
+  readonly section: TagFunc<Element, Text, HTMLElement>
 
   // Text content
   readonly blockquote: TagFunc<Element, Text, HTMLQuoteElement>
+  readonly dd: TagFunc<Element, Text, HTMLElement>
   readonly div: TagFunc<Element, Text, HTMLDivElement>
   readonly dl: TagFunc<Element, Text, HTMLDListElement>
+  readonly dt: TagFunc<Element, Text, HTMLElement>
+  readonly figcaption: TagFunc<Element, Text, HTMLElement>
+  readonly figure: TagFunc<Element, Text, HTMLElement>
   readonly hr: TagFunc<Element, Text, HTMLHRElement>
   readonly li: TagFunc<Element, Text, HTMLLIElement>
   readonly menu: TagFunc<Element, Text, HTMLMenuElement>
@@ -76,11 +90,34 @@ interface BrowserTags extends Tags<Element, Text> {
 
   // Inline text semantics
   readonly a: TagFunc<Element, Text, HTMLAnchorElement>
+  readonly abbr: TagFunc<Element, Text, HTMLElement>
+  readonly b: TagFunc<Element, Text, HTMLElement>
+  readonly bdi: TagFunc<Element, Text, HTMLElement>
+  readonly bdo: TagFunc<Element, Text, HTMLElement>
   readonly br: TagFunc<Element, Text, HTMLBRElement>
+  readonly cite: TagFunc<Element, Text, HTMLElement>
+  readonly code: TagFunc<Element, Text, HTMLElement>
   readonly data: TagFunc<Element, Text, HTMLDataElement>
+  readonly dfn: TagFunc<Element, Text, HTMLElement>
+  readonly em: TagFunc<Element, Text, HTMLElement>
+  readonly i: TagFunc<Element, Text, HTMLElement>
+  readonly kbd: TagFunc<Element, Text, HTMLElement>
+  readonly mark: TagFunc<Element, Text, HTMLElement>
   readonly q: TagFunc<Element, Text, HTMLQuoteElement>
+  readonly rp: TagFunc<Element, Text, HTMLElement>
+  readonly rt: TagFunc<Element, Text, HTMLElement>
+  readonly ruby: TagFunc<Element, Text, HTMLElement>
+  readonly s: TagFunc<Element, Text, HTMLElement>
+  readonly samp: TagFunc<Element, Text, HTMLElement>
+  readonly small: TagFunc<Element, Text, HTMLElement>
   readonly span: TagFunc<Element, Text, HTMLSpanElement>
+  readonly strong: TagFunc<Element, Text, HTMLElement>
+  readonly sub: TagFunc<Element, Text, HTMLElement>
+  readonly sup: TagFunc<Element, Text, HTMLElement>
   readonly time: TagFunc<Element, Text, HTMLTimeElement>
+  readonly u: TagFunc<Element, Text, HTMLElement>
+  readonly var: TagFunc<Element, Text, HTMLElement>
+  readonly wbr: TagFunc<Element, Text, HTMLElement>
 
   // Image and multimedia
   readonly area: TagFunc<Element, Text, HTMLAreaElement>
@@ -99,6 +136,7 @@ interface BrowserTags extends Tags<Element, Text> {
 
   // Scripting
   readonly canvas: TagFunc<Element, Text, HTMLCanvasElement>
+  readonly noscript: TagFunc<Element, Text, HTMLElement>
   readonly script: TagFunc<Element, Text, HTMLScriptElement>
 
   // Demarcating edits
@@ -136,6 +174,7 @@ interface BrowserTags extends Tags<Element, Text> {
   // Interactive elements
   readonly details: TagFunc<Element, Text, HTMLDetailsElement>
   readonly dialog: TagFunc<Element, Text, HTMLDialogElement>
+  readonly summary: TagFunc<Element, Text, HTMLElement>
 
   // Web Components
   readonly slot: TagFunc<Element, Text, HTMLSlotElement>
