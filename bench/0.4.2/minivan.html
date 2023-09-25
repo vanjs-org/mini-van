@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html><head>
+    <link rel="icon" href="/logo.svg">
+    <title>Mini-Van - A Minimalist Template Engine for Client/Server-side Rendering</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/w3.css">
+    <link rel="stylesheet" href="/font.css">
+    <link rel="stylesheet" href="/prism.css">
+    <link rel="stylesheet" href="/vanjs.css">
+  </head>
+  <body class="line-numbers" data-prismjs-copy="📋">
+    <!-- Google tag (gtag.js) -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Q0NB75RY7E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-Q0NB75RY7E');
+    </script>
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:280px;font-weight:bold;" id="mySidebar"><br>
+      <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+      <div class="w3-container">
+        <h1 class="w3-padding-16 w3-xxxlarge">
+          <img src="/logo.svg" alt="VanJS" width="192px" height="192px">
+        </h1>
+      </div>
+      <div id="nav" class="w3-bar-block"><a href="/" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a><a href="/start" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Getting Started</a><a href="/tutorial" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Tutorial</a><a href="/demo" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">VanJS by Example</a><a href="/convert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">HTML/MD to VanJS</a><a href="/vanui" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">VanUI</a><a href="/minivan" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white current">Mini-Van</a><a href="/ssr" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">SSR &amp; Hydration</a><a href="/advanced" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Advanced Topics</a><a href="/media" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Media Mentions</a><a href="/about" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About</a></div>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+      <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+      <span id="title-bar">Mini-Van</span>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:300px;">
+      <div id="page">
+        <div id="content"><h1 class="w3-xxlarge"><b>Mini-Van</b>: A Minimalist Template Engine for Client/Server-side Rendering without JSX</h1><p><b>Mini-Van</b> is an <b><i>ultra-lightweight</i></b> template engine for DOM composition and manipulation. With only 0.7kB in the minified bundle size (0.5kB gzipped), <b>Mini-Van</b> enables you to build comprehensive UI with elegant and expressive vanilla JavaScript code:</p><pre><code class="language-js">// Reusable components can be just pure vanilla JavaScript functions.
+// Here we capitalize the first letter to follow React conventions.
+const Hello = () =&gt; div(
+  p("👋Hello"),
+  ul(
+    li("🗺️World"),
+    li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
+  ),
+)
+
+van.add(document.body, Hello())
+// Alternatively, you can write:
+// document.body.appendChild(Hello())
+</code></pre><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/minivan/hello">Try on jsfiddle</a></p><p>You can convert any HTML snippet into <b>Mini-Van</b> code with our online <a href="/convert" class="w3-hover-opacity">converter</a>.</p><p><b>Mini-Van</b> is the slimmed-down version of <a href="/" class="w3-hover-opacity"><b>VanJS</b></a>, which aims to provide an <b><i>ultra-lightweight</i></b>, <b><i>zero-dependency</i></b>, and <b><i>unopinionated</i></b> Reactive UI framework based on pure vanilla JavaScript and DOM. Compared to <b>VanJS</b>, <b>Mini-Van</b> further reduces the gzipped minified bundle size to 0.5kB and (<i>more importantly</i>) can be used on the server-side as a <a href="https://en.wikipedia.org/wiki/Web_template_system" class="w3-hover-opacity">template engine</a>.</p><h2 class="w3-xxlarge w3-text-red" id="server-side-npm-integration"><a class="self-link" href="#server-side-npm-integration">Server-Side: NPM Integration</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p><b>Mini-Van</b>&nbsp;can be used on the server side as a template engine to render dynamic web content for HTTP servers. An NPM package was published here: <a href="https://www.npmjs.com/package/mini-van-plate" class="w3-hover-opacity">www.npmjs.com/package/mini-van-plate</a>. Thus it can be used in <a href="https://nodejs.org/" class="w3-hover-opacity">Node.js</a> or <a href="https://bun.sh/" class="w3-hover-opacity">Bun</a>.</p><p>There are 2 modes for server-side integration: <code class="symbol">van-plate</code> mode (based on text templating, thus doesn't need the DOM dependency), and <code class="symbol">mini-van</code> mode (based on DOM, thus needs the DOM dependency).</p><h3 class="w3-large w3-text-red" id="install"><a class="self-link" href="#install">Install</a></h3><pre><code class="language-shell">npm install mini-van-plate</code></pre><h3 class="w3-large w3-text-red" id="npm-van-plate"><a class="self-link" href="#npm-van-plate"><code class="symbol">van-plate</code> mode</a></h3><p>In <code class="symbol">van-plate</code> mode, HTML content is generated purely through text templating. It can be easily integrated with your HTTP server to render dynamic web content. See the sample code below:</p><pre><code class="language-js">import http from "node:http"
+import van from "mini-van-plate/van-plate"
+
+const {a, body, button, input, li, p, ul} = van.tags
+
+const port = 8080
+
+console.log("Testing DOM rendering...")
+// Expecting `&lt;a href="https://vanjs.org/"&gt;🍦VanJS&lt;/a&gt;` printed in the console
+console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").render())
+// Expecting `&lt;button onclick="alert(&amp;quot;Hello&amp;quot;)"&gt;Click&lt;/button&gt;` printed in the console
+console.log(button({onclick: 'alert("Hello")'}, "Click").render())
+// Expecting `&lt;input type="text" value="value"&gt;` printed in the console
+console.log(input({type: "text", value: "value"}).render())
+
+const server = http.createServer((req, res) =&gt; {
+  res.statusCode = 200
+  res.setHeader('Content-Type', 'text/html; charset=utf-8')
+  res.end(van.html(
+    body(
+      p("Your user-agent is: ", req.headers["user-agent"] ?? "Unknown"),
+      p("👋Hello"),
+      ul(
+        li("🗺️World"),
+        li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
+      ),
+    ),
+  ))
+})
+
+server.listen(port, () =&gt; console.log(`Server running at http://localhost:${port}/`))
+</code></pre><p>Preview via <a href="https://codesandbox.io/p/sandbox/hopeful-perlman-rh7wvk?file=/van-plate-server.mjs:1,1" class="w3-hover-opacity">CodeSandbox</a>.</p><p>As illustrated in the example, <code class="symbol">render</code> method can be called on the object returned from the <code class="symbol"><a href="/tutorial#api-tags" class="w3-hover-opacity">tag function</a></code> to generate a <code class="symbol">string</code> that can be used for serving.</p><p><code class="symbol">van.html</code> is a helper function defined in <code class="symbol">van-plate.js</code>&nbsp;that is equivalent to:</p><pre><code class="language-js">(...args) =&gt; "&lt;!DOCTYPE html&gt;" + tags.html(...args).render()</code></pre><p></p><h3 class="w3-large w3-text-red" id="npm-mini-van"><a class="self-link" href="#npm-mini-van"><code class="symbol">mini-van</code> mode</a></h3><p>The behavior in <code class="symbol">mini-van</code> mode is similar to the behavior in browser context. i.e.: DOM objects will be created by <code class="symbol"><a href="/tutorial#api-tags" class="w3-hover-opacity">tag functions</a></code>. As Node doesn't have the built-in support for DOM objects, you need to provide a 3rd-party <code class="symbol">Document</code> object before integrating with <b>Mini-Van</b> in this mode.</p><p>There are multiple 3rd-party options for the <code class="symbol">Document</code> object. In the example below, we will demonstrate the integration with the help of <code class="symbol"><a href="https://www.npmjs.com/package/jsdom" class="w3-hover-opacity">jsdom</a></code>.</p><p>Note that, <code class="symbol">mini-van</code> mode doesn't work in Bun yet due to the integration issue with <code class="symbol">jsdom</code>.</p><p>First, install <code class="symbol">jsdom</code>:</p><pre><code class="language-shell">npm install jsdom</code></pre><p>Sample code:</p><pre><code class="language-js">import http from "node:http"
+import jsdom from "jsdom"
+import van from "mini-van-plate"
+
+const dom = new jsdom.JSDOM("")
+const {html, tags: {a, body, button, input, li, p, ul}} = van.vanWithDoc(dom.window.document)
+
+const port = 8080
+
+console.log("Testing DOM rendering...")
+// Expecting `&lt;a href="https://vanjs.org/"&gt;🍦VanJS&lt;/a&gt;` printed in the console
+console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").outerHTML)
+// Expecting `&lt;button onclick="alert(&amp;quot;Hello&amp;quot;)"&gt;Click&lt;/button&gt;` printed in the console
+console.log(button({onclick: 'alert("Hello")'}, "Click").outerHTML)
+// Expecting `&lt;input type="text" value="value"&gt;` printed in the console
+console.log(input({type: "text", value: "value"}).outerHTML)
+
+const server = http.createServer((req, res) =&gt; {
+  res.statusCode = 200
+  res.setHeader('Content-Type', 'text/html; charset=utf-8')
+  res.end(html(
+    body(
+      p("Your user-agent is: ", req.headers["user-agent"] ?? "Unknown"),
+      p("👋Hello"),
+      ul(
+        li("🗺️World"),
+        li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
+      ),
+    ),
+  ))
+})
+
+server.listen(port, () =&gt; console.log(`Server running at http://localhost:${port}/`))
+</code></pre><p>Preview via <a href="https://codesandbox.io/p/sandbox/eloquent-nova-s9km5j?file=/mini-van-server.mjs:1,1" class="w3-hover-opacity">CodeSandbox</a>.</p><p>Similar to <code class="symbol">van-plate</code> mode, we have a helper function <code class="symbol">html</code> defined in <code class="symbol">mini-van.js</code> which is equivalent to:</p><pre><code class="language-js">(...args) =&gt; "&lt;!DOCTYPE html&gt;" + tags.html(...args).outerHTML</code></pre><h2 class="w3-xxlarge w3-text-red" id="server-side-deno-integration"><a class="self-link" href="#server-side-deno-integration">Server-Side: Deno Integration</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Similarly, <b>Mini-Van</b> can work with Deno as well, in both <code class="symbol">van-plate</code> mode and <code class="symbol">mini-van</code> mode. A Deno module  was published here: <code class="symbol"><a href="https://deno.land/x/minivan" class="w3-hover-opacity">deno.land/x/minivan</a></code>.</p><h3 class="w3-large w3-text-red" id="deno-van-plate"><a class="self-link" href="#deno-van-plate"><code class="symbol">van-plate</code> mode</a></h3><p>Sample code:</p><div style="font-size: 0.9em;"><i>Requires Deno <code class="symbol">1.35</code> or later.</i></div><pre><code class="language-ts">import van from "https://deno.land/x/minivan@0.4.2/src/van-plate.js"
+
+const {a, body, button, input, li, p, ul} = van.tags
+
+const port = 8080
+
+console.log("Testing DOM rendering...")
+// Expecting `&lt;a href="https://vanjs.org/"&gt;🍦VanJS&lt;/a&gt;` printed in the console
+console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").render())
+// Expecting `&lt;button onclick="alert(&amp;quot;Hello&amp;quot;)"&gt;Click&lt;/button&gt;` printed in the console
+console.log(button({onclick: 'alert("Hello")'}, "Click").render())
+// Expecting `&lt;input type="text" value="value"&gt;` printed in the console
+console.log(input({type: "text", value: "value"}).render())
+
+console.log(`HTTP webserver running. Access it at: http://localhost:${port}/`)
+Deno.serve({port}, req =&gt; new Response(
+  van.html(
+    body(
+      p("Your user-agent is: ", req.headers.get("user-agent") ?? "Unknown"),
+      p("👋Hello"),
+      ul(
+        li("🗺️World"),
+        li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
+      ),
+    ),
+  ),
+  {
+    status: 200,
+    headers: {"content-type": "text/html; charset=utf-8"},
+  },
+))
+</code></pre><p>Preview via <a href="https://codesandbox.io/p/sandbox/eloquent-bird-95rzff?file=/van-plate-server.ts:1,1" class="w3-hover-opacity">CodeSandbox</a>.</p><h3 class="w3-large w3-text-red" id="deno-mini-van"><a class="self-link" href="#deno-mini-van"><code class="symbol">mini-van</code> mode</a></h3><p>Likewise, <b>Mini-Van</b> mode needs a 3rd-party DOM library to provide the <code class="symbol">Document</code> object. We will show an example with the integration of <code class="symbol"><a href="https://deno.com/manual@v1.28.1/advanced/jsx_dom/deno_dom" class="w3-hover-opacity">deno-dom</a></code>.</p><div style="font-size: 0.9em;"><i>Requires Deno <code class="symbol">1.35</code> or later.</i></div><pre><code class="language-ts">import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
+import van from "https://deno.land/x/minivan@0.4.2/src/mini-van.js"
+
+const document = new DOMParser().parseFromString("", "text/html")!
+const {tags: {a, body, button, input, li, p, ul}, html} = van.vanWithDoc(document)
+
+const port = 8080
+
+console.log("Testing DOM rendering...")
+// Expecting `&lt;a href="https://vanjs.org/"&gt;🍦VanJS&lt;/a&gt;` printed in the console
+console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").outerHTML)
+// Expecting `&lt;button onclick="alert(&amp;quot;Hello&amp;quot;)"&gt;Click&lt;/button&gt;` printed in the console
+console.log(button({onclick: 'alert("Hello")'}, "Click").outerHTML)
+// Expecting `&lt;input type="text" value="value"&gt;` printed in the console
+console.log(input({type: "text", value: "value"}).outerHTML)
+
+console.log(`HTTP webserver running. Access it at: http://localhost:${port}/`)
+Deno.serve({port}, req =&gt; new Response(
+  html(
+    body(
+      p("Your user-agent is: ", req.headers.get("user-agent") ?? "Unknown"),
+      p("👋Hello"),
+      ul(
+        li("🗺️World"),
+        li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
+      ),
+    ),
+  ),
+  {
+    status: 200,
+    headers: {"content-type": "text/html; charset=utf-8"},
+  },
+))
+</code></pre><p>Preview via <a href="https://codesandbox.io/p/sandbox/heuristic-browser-vtxh3c?file=/mini-van-server.ts:1,1" class="w3-hover-opacity">CodeSandbox</a>.</p><h2 class="w3-xxlarge w3-text-red" id="client-side-getting-started"><a class="self-link" href="#client-side-getting-started">Client-Side: Getting Started</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>To get started on the client side, add the line below to your script:</p><pre><code class="language-js">import van from "https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.4.2.min.js"</code></pre><p>To code without ES6 modules, add the following line to your HTML file instead:</p><pre><code class="language-html">&lt;script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.4.2.nomodule.min.js"&gt;&lt;/script&gt;</code></pre><p>Alternative, you can download the files (<code class="symbol"><a href="/code/mini-van-0.4.2.min.js" download="mini-van-0.4.2.min.js" style="white-space: nowrap;" title="Download mini-van-0.4.2.min.js">mini-van-0.4.2.min.js</a></code>, <code class="symbol"><a href="/code/mini-van-0.4.2.nomodule.min.js" download="mini-van-0.4.2.nomodule.min.js" style="white-space: nowrap;" title="Download mini-van-0.4.2.nomodule.min.js">mini-van-0.4.2.nomodule.min.js</a></code>) and serve them locally.</p><h3 class="w3-large w3-text-red" id="download-table"><a class="self-link" href="#download-table">Download Table</a></h3><p>You can find all relevant <b>Mini-Van</b> files to download in the table below:</p><div>Click the link to download the file, or 📋 to copy the import line from CDN.</div><table class="download-table"><thead><tr><th>Files</th><th>Description</th></tr></thead><tbody><tr><td><pre style="margin: 0;"><code class="symbol"><a href="/code/mini-van-0.4.2.min.js" download="mini-van-0.4.2.min.js" style="white-space: nowrap;" title="Download mini-van-0.4.2.min.js">mini-van-0.4.2.min.js</a><a class="copy" onclick="copy(this)" onmouseout="resetTooltip(this)"><span class="tooltip">Copy import line</span>📋</a></code></pre><pre style="margin: 0;"><code class="symbol"><a href="/code/mini-van-0.4.2.min.d.ts" download="mini-van-0.4.2.min.d.ts" style="white-space: nowrap;" title="Download mini-van-0.4.2.min.d.ts">mini-van-0.4.2.min.d.ts</a></code></pre></td><td>Minified script file for ES6 modules, optimized for bundle size.</td></tr><tr><td><pre style="margin: 0;"><code class="symbol"><a href="/code/mini-van-0.4.2.js" download="mini-van-0.4.2.js" style="white-space: nowrap;" title="Download mini-van-0.4.2.js">mini-van-0.4.2.js</a><a class="copy" onclick="copy(this)" onmouseout="resetTooltip(this)"><span class="tooltip">Copy import line</span>📋</a></code></pre><pre style="margin: 0;"><code class="symbol"><a href="/code/mini-van-0.4.2.d.ts" download="mini-van-0.4.2.d.ts" style="white-space: nowrap;" title="Download mini-van-0.4.2.d.ts">mini-van-0.4.2.d.ts</a></code></pre></td><td>The source file without minification.</td></tr><tr><td><pre style="margin: 0;"><code class="symbol"><a href="/code/van-0.4.2.nomodule.min.js" download="van-0.4.2.nomodule.min.js" style="white-space: nowrap;" title="Download van-0.4.2.nomodule.min.js">van-0.4.2.nomodule.min.js</a><a class="copy" onclick="copy(this)" onmouseout="resetTooltip(this)"><span class="tooltip">Copy import line</span>📋</a></code></pre></td><td>Similar to <code class="symbol">mini-van-0.4.2.min.js</code>, but designed to work in non-module context, such as inline JavaScript or <code class="symbol">&lt;script type="text/javascript"&gt;</code>.</td></tr><tr><td><pre style="margin: 0;"><code class="symbol"><a href="/code/van-0.4.2.nomodule.js" download="van-0.4.2.nomodule.js" style="white-space: nowrap;" title="Download van-0.4.2.nomodule.js">van-0.4.2.nomodule.js</a><a class="copy" onclick="copy(this)" onmouseout="resetTooltip(this)"><span class="tooltip">Copy import line</span>📋</a></code></pre></td><td>Similar to <code class="symbol">mini-van-0.4.2.js</code>, but designed to work in non-module context, such as inline JavaScript or <code class="symbol">&lt;script type="text/javascript"&gt;</code>.</td></tr></tbody></table><h2 class="w3-xxlarge w3-text-red" id="api-reference"><a class="self-link" href="#api-reference">API Reference</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p><b>Mini-Van</b> exposes the same set of APIs as <b>VanJS</b> for DOM composition and manipulation. Thus for API reference, you can refer to <a href="/tutorial#dom" class="w3-hover-opacity">DOM Composition and Manipulation</a> section of <b>VanJS</b> tutorial. Note that: state and state binding are not supported in <b>Mini-Van</b>.</p><h2 class="w3-xxlarge w3-text-red" id="source-code"><a class="self-link" href="#source-code">Source Code</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p style="display: flex; align-items: center;"><svg height="16" aria-hidden="true" viewbox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-mark-github v-align-middle" style="margin-right: 6px;"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg><a href="https://github.com/vanjs-org/mini-van" class="w3-hover-opacity">github.com/vanjs-org/mini-van</a></p><h2 class="w3-xxlarge w3-text-red" id="support-feedback"><a class="self-link" href="#support-feedback">Support &amp; Feedback</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>🙏 <b>VanJS</b> aims to build a better world by reducing the entry barrier for UI programming, with no intention or plan on commercialization whatsoever. If you find <b>VanJS</b> interesting, or could be useful for you some day, please consider starring the project on <a href="https://github.com/vanjs-org/mini-van" class="w3-hover-opacity">GitHub</a>. It takes just a few seconds but your support means the world to us and helps spread <b>VanJS</b> to a wider audience.</p><p>We're looking for the 1.0 milestone (commitment to API stability) soon, your precious feedback will be greatly appreciated. You can submit your feedback by creating issues with the link below:</p><p><a class="github-button" href="https://github.com/vanjs-org/mini-van" data-icon="octicon-star" data-show-count="true" aria-label="Star vanjs-org/van on GitHub">Star</a> <a class="github-button" href="https://github.com/vanjs-org/mini-van/subscription" data-icon="octicon-eye" aria-label="Watch vanjs-org/van on GitHub">Watch</a> <a class="github-button" href="https://github.com/vanjs-org/mini-van/issues" data-icon="octicon-issue-opened" aria-label="Issue vanjs-org/van on GitHub">Issue</a> <a class="github-button" href="https://github.com/vanjs-org" aria-label="Follow @vanjs-org on GitHub">Follow @vanjs-org</a></p><p>Contact us: <a href="mailto:tao@vanjs.org" class="w3-hover-opacity">tao@vanjs.org</a></p></div>
+        <aside id="toc"><ul><li><a href="#server-side-npm-integration" class="w3-hover-opacity">Server-Side: NPM Integration</a><ul><li><a href="#install" class="w3-hover-opacity">Install</a></li><li><a href="#npm-van-plate" class="w3-hover-opacity">van-plate mode</a></li><li><a href="#npm-mini-van" class="w3-hover-opacity">mini-van mode</a></li></ul></li><li><a href="#server-side-deno-integration" class="w3-hover-opacity">Server-Side: Deno Integration</a><ul><li><a href="#deno-van-plate" class="w3-hover-opacity">van-plate mode</a></li><li><a href="#deno-mini-van" class="w3-hover-opacity">mini-van mode</a></li></ul></li><li><a href="#client-side-getting-started" class="w3-hover-opacity">Client-Side: Getting Started</a><ul><li><a href="#download-table" class="w3-hover-opacity">Download Table</a></li></ul></li><li><a href="#api-reference" class="w3-hover-opacity">API Reference</a></li><li><a href="#source-code" class="w3-hover-opacity">Source Code</a></li><li><a href="#support-feedback" class="w3-hover-opacity">Support &amp; Feedback</a></li></ul></aside>
+      </div>
+    </div>
+    <script type="text/javascript" src="/prism.js"></script>
+    <script type="module"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="/code/diff.min.js"></script>
+    <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>
+    <script type="text/javascript" src="/page-script.js"></script>
+    <script class="inline"></script>
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
+  
+
+</body></html>

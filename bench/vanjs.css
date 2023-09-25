@@ -1,0 +1,423 @@
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+#content div, #content p, #content table, #content ul, #content ol, #toc {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+}
+
+body {
+  color: black;
+  background-color: white;
+}
+
+pre[class*=language-], pre[class*=language-].line-numbers>code {
+  /* If using the font-family below, the line numbers and code won't align horizontally,
+  I don't know why and how to get them aligned. */
+  /* font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace; */
+  font-size: 12px;
+}
+
+header {
+  white-space: nowrap;
+  /* overflow-x: hidden; */
+}
+
+header.w3-top {
+  z-index: 20;
+}
+
+#nav .current {
+  color: #000!important;
+  background-color: #fff!important
+}
+
+.err { color: red; }
+
+a {
+  cursor: pointer;
+}
+
+.self-link {
+  text-decoration: none
+}
+
+.self-link::before {
+  content: "#";
+  color: #9e9e9ea6;
+  display: inline-block;
+  font-size: 0.7em;
+  line-height: 1;
+  margin-left: -0.9em;
+  text-decoration: none;
+  width: 0.9em;
+  visibility: hidden;
+}
+
+.self-link:hover {
+  padding-left: 0.3em;
+  text-decoration: underline;
+}
+
+.self-link:hover::before {
+  visibility: visible;
+}
+
+#page {
+  display: flex;
+}
+
+#toc {
+  flex: 30%;
+  margin-left: 35px;
+  margin-right: 15px;
+  min-width: 240px;
+  max-width: 280px;
+  position: sticky;
+  align-self: flex-start;
+  overflow-y: auto;
+  top: 40px;
+  height: calc(100vh - 40px);
+}
+
+#toc > ul {
+  list-style: square;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+#toc a {
+  text-decoration: none;
+}
+
+#toc a.w3-opacity {
+  text-decoration: underline;
+  font-weight: 1000;
+}
+
+ul.dir-tree, ul.dir-tree ul {
+  list-style: none;
+  padding-left: 15px;
+}
+
+ul.dir-tree li.folder::before {
+  content: "📂 ";
+}
+
+ul.dir-tree li.file::before {
+  content: "📄 ";
+}
+
+ul.dir-tree li.folder, ul.dir-tree li.file {
+  text-indent: -1.5em;
+  padding-left: 1.5em;
+}
+
+#content {
+  flex: 70%;
+  max-width: 800px;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: auto;
+}
+
+#content :not(h2, h3) a:-webkit-any-link {
+  color: -webkit-link;
+}
+
+.fixed-width {
+  font-family: Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;
+}
+
+.symbol {
+  background-color: rgb(245, 242, 240);
+  font-family: Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;
+  padding: 0.1em 0.2em;
+  border-radius: 6px;
+}
+
+[id^=demo-] {
+  background-color: rgba(175, 184, 193, 0.1);
+  padding: 0.5em 0.5em;
+}
+
+@media (max-width: 485px) {
+  #demo-connected-props input {
+    width: 120px;
+  }
+}
+
+#demo-key-inspector .label {
+  width: 80px;
+  font-weight: bold;
+}
+
+#demo-key-inspector .value { width: 80px; }
+
+#demo-key-inspector .label, .value {
+  font: monospace;
+  display: inline-block;
+}
+
+#demo-diff-simple .row { display: flex; }
+
+#demo-diff-simple .column {
+  width: 500px;
+  margin: 2px;
+}
+
+#demo-diff-simple .column textarea {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#demo-diff-simple .add { background-color: #B5EFDB; }
+
+#demo-diff-simple .remove {
+  background-color: #FFC4C1;
+  text-decoration: line-through;
+}
+
+#demo-diff .row { display: flex; }
+
+#demo-diff .column {
+  width: 500px;
+  margin: 2px;
+}
+
+#demo-diff .column textarea {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#demo-diff .add { background-color: #B5EFDB; }
+#demo-diff .remove { background-color: #FFC4C1; }
+#demo-diff .merged .remove { text-decoration: line-through; }
+
+#demo-diff input[type=checkbox] {
+  margin: 0 3px 0 4px;
+}
+
+#demo-calculator {
+  background-color: unset;
+  padding: unset;
+  width: 100%;
+  min-height: 200px;
+  max-height: 500px;
+}
+
+#demo-table-viewer textarea, #demo-json-inspector textarea {
+  width: 100%;
+}
+
+[id^=demo-auto-complete-] .root { display: flex; }
+
+[id^=demo-auto-complete-] textarea {
+  flex-grow: 1;
+  height: 200px;
+}
+
+[id^=demo-auto-complete-] .suggestion {
+  width: 200px;
+  padding: 1px 2px 1px 5px;
+  line-height: 1.2;
+}
+
+[id^=demo-auto-complete-] .text-row { display: table-row; }
+
+[id^=demo-auto-complete-] .text-row.selected {
+  background-color: blue;
+  color: white;
+}
+
+#demo-js-console {
+  font-size: 12px;
+}
+
+#demo-js-console .row {
+  display: flex;
+  flex-flow: wrap;
+}
+
+#demo-js-console .left {
+  width: 60px;
+  text-align: right;
+}
+
+#demo-js-console .run {
+  display: none;
+  margin: 12px;
+}
+
+@media (max-width: 450px), (pointer:none), (pointer:coarse) {
+  #demo-js-console .break { width: 100%; }
+  #demo-js-console .run { display: unset; }
+}
+
+#demo-js-console .right { flex-grow: 1; }
+
+#demo-js-console .right textarea, #demo-js-console .right table {
+  margin: 5px;
+  margin-top: 11px;
+  margin-right: 0px;
+  border-width: 1px;
+  box-sizing: border-box;
+  font: monospace;
+  width: calc(100% - 2 * 5px);
+}
+
+#demo-js-console .right pre, #demo-js-console .right .chart {
+  margin: 6px;
+  margin-top: 12px;
+}
+
+[id^=jsfiddle-] {
+  margin-top: 0;
+}
+
+[id^=demo-]:has(+ [id^=jsfiddle-]), p:has([id^=demo-]):has(+ [id^=jsfiddle-]) {
+  margin-bottom: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+#content table {
+  width: 100%;
+}
+
+#content select {
+  padding: 4px 0px;
+}
+
+table.download-table td {
+  padding: 6px 2px;
+}
+
+table td {
+  padding: 6px 13px;
+}
+
+tr:nth-child(2n) {
+  background-color: #fefcfc;
+}
+
+th, td {
+  border: 1px solid hsla(210,18%,87%,1);
+}
+
+textarea {
+  font: unset;
+  font-family: Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;
+  resize: none;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.copy {
+  position: relative;
+  display: inline-block;
+}
+
+.copy .tooltip {
+  visibility: hidden;
+  width: 140px;
+  font-size: 12px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.copy .tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.copy:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.contact svg {
+  padding-top: 3px;
+  margin-right: 3px;
+  color: rgb(101, 109, 118);
+}
+
+#dice {
+  transition: transform 0.3s ease; /* Smoother transition for hover */
+  display: inline-block;
+  margin-right: 5px;
+}
+
+@keyframes spinDice {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+#random-demo:hover #dice {
+  animation: spinDice 0.1s infinite;
+}
+
+#random-demo:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  #toc {
+    display: none;
+  }
+}
+
+@media (max-width: 1152px) {
+  html {
+    scroll-padding-top: 68px;
+  }
+
+  #page {
+    margin-top: 80px;
+  }
+
+  #toc {
+    top: 80px;
+    height: calc(100vh - 80px);
+  }
+}

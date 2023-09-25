@@ -44,18 +44,22 @@ const plainValue = (v, k) => {
 }
 
 const elementProto = {
-  render() {
-    return noChild[this.name] ?
-      `<${this.name}${this.propsStr}>` :
-      `<${this.name}${this.propsStr}>${this.childrenStrs.join("")}</${this.name}>`
-  }
-}
+  renderToBuf(buf) {
+    buf.push(`<${this.name}${this.propsStr}>`)
+    if (noChild[this.name]) return
+    for (const c of this.children) {
+      const plainC = plainValue(c)
+      protoOf(plainC) === elementProto ? plainC.renderToBuf(buf) : buf.push(escape(plainC.toString()))
+    }
+    buf.push(`</${this.name}>`)
+  },
 
-const toStr = children => children.map(
-  c => {
-    const plainC = plainValue(c)
-    return protoOf(plainC) === elementProto ? plainC.render() : escape(plainC.toString())
-  }).join("")
+  render() {
+    const buf = []
+    this.renderToBuf(buf)
+    return buf.join("")
+  },
+}
 
 const tags = new Proxy((name, ...args) => {
   const [props, ...children] = protoOf(args[0] ?? 0) === objProto ? args : [{}, ...args]
@@ -66,19 +70,21 @@ const tags = new Proxy((name, ...args) => {
       // as they're usually not useful for SSR (server-side rendering).
       protoOf(plainV) !== funcProto ? ` ${lowerK}=${JSON.stringify(escapeAttr(plainV.toString()))}` : ""
   }).join("")
-  const flattenedChildren = children.flat(Infinity).filter(c => c != null)
   return {__proto__: elementProto, name, propsStr,
-    childrenStrs: flattenedChildren.length > 0 ? [toStr(flattenedChildren)] : []}
+    children: children.flat(Infinity).filter(c => c != null)}
 }, { get: (tag, name) => tag.bind(null, name) })
 
 const add = (dom, ...children) => {
-  children = children.flat(Infinity).filter(c => c != null)
-  if (children.length > 0) dom.childrenStrs.push(toStr(children))
+  dom.children.push(...children.flat(Infinity).filter(c => c != null))
   return dom
 }
 
 export default {
   add, _: f => (f._isBindingFunc = 1, f), tags, tagsNS: () => tags, state,
   val, oldVal: val, derive: f => state(f()),
-  html: (...args) => "<!DOCTYPE html>" + tags.html(...args).render()
+  html: (...args) => {
+    const buf = ["<!DOCTYPE html>"]
+    tags.html(...args).renderToBuf(buf)
+    return buf.join("")
+  }
 }

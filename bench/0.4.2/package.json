@@ -1,0 +1,19 @@
+{
+  "name": "benchmark-mini-van-plate-0.4.2",
+  "module": "bun-server.js",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest",
+    "vanjs-converter": "^0.2.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "mini-van-plate": "0.4.2",
+    "finalhandler": "^1.2.0",
+    "serve-static": "^1.15.0",
+    "react": "next",
+    "react-dom": "next"
+  }
+}

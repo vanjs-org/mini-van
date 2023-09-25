@@ -1,5 +1,6 @@
 {
   "deno.enablePaths": [
-    "test/deno"
+    "test/deno",
+    "bench/0.4.2/deno-server.js"
   ]
 }
