@@ -6,7 +6,7 @@ This directory is for the benchmark of the SSR performance of **Mini-Van** ([`va
 
 We want to benchmark the SSR performance of **Mini-Van** for webpages with typical complexity. For that reason, https://vanjs.org/minivan was used. We downloaded the HTML file for https://vanjs.org/minivan, converted the HTML file to the equivalent **VanJS** code via [**VanJS** Code Converter](https://github.com/vanjs-org/converter), and built HTTP servers with Bun, Deno and Node.js to serve the converted **VanJS** component.
 
-The HTML file used for benchmark is [`minivan.html`](minivan.html) ([`page.js`](page.js) for the converted **Mini-Van** component). [`http_load_test`](https://github.com/uNetworking/uSockets/blob/master/examples/http_load_test.c) is used for measurement. We're benchmarking both [`mini-van-plate@0.4.2`](https://www.npmjs.com/package/mini-van-plate/v/0.4.2) and [`mini-van-plate@0.5.0`](https://www.npmjs.com/package/mini-van-plate/v/0.5.0) (where an [optimization](https://github.com/vanjs-org/mini-van/releases/tag/0.5.0) to reduce string concatenation was implemented).
+The HTML file used for benchmark is [`minivan.html`](0.4.2/minivan.html) ([`page.js`](0.4.2/page.js) for the converted **Mini-Van** component). [`http_load_test`](https://github.com/uNetworking/uSockets/blob/master/examples/http_load_test.c) is used for measurement. We're benchmarking both [`mini-van-plate@0.4.2`](https://www.npmjs.com/package/mini-van-plate/v/0.4.2) and [`mini-van-plate@0.5.0`](https://www.npmjs.com/package/mini-van-plate/v/0.5.0) (where an [optimization](https://github.com/vanjs-org/mini-van/releases/tag/0.5.0) to reduce string concatenation was implemented).
 
 ## Result
 
