@@ -1,6 +1,6 @@
-# Benchmark the SSR Performance of Mini-Van for Bun, Deno and Node.js
+# Benchmark the SSR Performance of Mini-Van on Bun, Deno and Node.js
 
-This directory is for the benchmark of **Mini-Van**'s SSR performance ([`van-plate` mode](https://github.com/vanjs-org/mini-van#van-plate-mode) is being used) for [Bun](https://bun.sh/), [Deno](https://deno.com/) and [Node.js](https://nodejs.org/).
+This directory is for the benchmark of **Mini-Van**'s SSR performance ([`van-plate` mode](https://github.com/vanjs-org/mini-van#van-plate-mode) is being used) on [Bun](https://bun.sh/), [Deno](https://deno.com/) and [Node.js](https://nodejs.org/).
 
 ## Methodology
 
@@ -22,7 +22,7 @@ Req/Sec (_higher is better_)
 
 ## React vs. Mini-Van
 
-In addition, we also compared the SSR performance between React and **Mini-Van** for Bun and Deno, using the `Hello, World!` examples [here](https://github.com/oven-sh/bun/tree/main/bench/react-hello-world).
+In addition, we also compared the SSR performance between React and **Mini-Van** on Bun and Deno, using the `Hello, World!` examples [here](https://github.com/oven-sh/bun/tree/main/bench/react-hello-world).
 
 Req/Sec (_higher is better_)
 
