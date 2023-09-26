@@ -1,6 +1,6 @@
 # Benchmark the SSR Performance of Mini-Van for Bun, Deno and Node.js
 
-This directory is for the benchmark of the SSR performance of **Mini-Van** ([`van-plate` mode](https://github.com/vanjs-org/mini-van#van-plate-mode) is being used) for [Bun](https://bun.sh/), [Deno](https://deno.com/) and [Node.js](https://nodejs.org/).
+This directory is for the benchmark of **Mini-Van**'s SSR performance ([`van-plate` mode](https://github.com/vanjs-org/mini-van#van-plate-mode) is being used) for [Bun](https://bun.sh/), [Deno](https://deno.com/) and [Node.js](https://nodejs.org/).
 
 ## Methodology
 
