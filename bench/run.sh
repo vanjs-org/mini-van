@@ -1,3 +1,5 @@
+trap "jobs -p | xargs kill" EXIT
+
 bench() {
   echo \`\`\`
   eval "$1 &"
