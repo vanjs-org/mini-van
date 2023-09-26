@@ -8,6 +8,8 @@ We want to benchmark the SSR performance of **Mini-Van** for webpages with typic
 
 The HTML file used for benchmark is [`minivan.html`](0.4.2/minivan.html) ([`page.js`](0.4.2/page.js) for the converted **Mini-Van** component). [`http_load_test`](https://github.com/uNetworking/uSockets/blob/master/examples/http_load_test.c) is used for measurement. We're benchmarking both [`mini-van-plate@0.4.2`](https://www.npmjs.com/package/mini-van-plate/v/0.4.2) and [`mini-van-plate@0.5.0`](https://www.npmjs.com/package/mini-van-plate/v/0.5.0) (where an [optimization](https://github.com/vanjs-org/mini-van/releases/tag/0.5.0) to reduce string concatenation was implemented).
 
+_Tests was done in MacBook Air, M1, 2020 with macOS 13.0 (Ventura)._
+
 ## Result
 
 Req/Sec (_higher is better_)
