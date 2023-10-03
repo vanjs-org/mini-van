@@ -22,7 +22,7 @@ Req/Sec (_higher is better_)
 
 ## React vs. Mini-Van
 
-In addition, we also compared the SSR performance between React and **Mini-Van** on Bun and Deno, using the `Hello, World!` examples [here](https://github.com/oven-sh/bun/tree/main/bench/react-hello-world).
+In addition, we also compared the SSR performance between React and **Mini-Van** on Bun, Deno and Node.js, using the `Hello, World!` examples [here](https://github.com/oven-sh/bun/tree/main/bench/react-hello-world).
 
 Req/Sec (_higher is better_)
 
