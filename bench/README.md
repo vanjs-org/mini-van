@@ -32,7 +32,7 @@ Req/Sec (_higher is better_)
 | Deno (`1.37.0`) | 43401 | 84611 | 86502 |
 | Node (`20.0.0`) | 30721 | 67724 | 68807 |
 
-As we can see, **Mini-Van** is roughly **1.75X** ~ **2X** more efficient compared to React.
+As we can see, **Mini-Van** is roughly **1.75X** ~ **2.25X** more efficient compared to React.
 
 ## Appendix
 
