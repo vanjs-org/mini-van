@@ -1,6 +1,3 @@
-// to run this:
-//  NODE_ENV=production bun react-hello-world.jsx
-
 // Make sure you're using react-dom@18.3.0 or later.
 // Currently that is available at react-dom@next (which is installed in this repository)
 import { renderToReadableStream } from "react-dom/server";

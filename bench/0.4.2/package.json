@@ -3,6 +3,10 @@
   "module": "bun-server.js",
   "type": "module",
   "devDependencies": {
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15",
     "bun-types": "latest",
     "vanjs-converter": "^0.2.0"
   },

@@ -1,6 +1,3 @@
-// to run this:
-//  NODE_ENV=production bun van-plate-hello-world.js
-
 import van from "mini-van-plate/van-plate";
 
 const {html, tags: {body, h1, p}} = van

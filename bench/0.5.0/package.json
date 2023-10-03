@@ -3,7 +3,7 @@
   "module": "bun-server.js",
   "type": "module",
   "scripts": {
-    "sync": "bun sync.ts ../0.4.2 package.json bun.lockb yarn.lock react-hello-world.deno.jsx react-hello-world.jsx | bash"
+    "sync": "bun sync.ts ../0.4.2 package.json bun.lockb yarn.lock react-hello-world.bun.jsx react-hello-world.deno.jsx react-hello-world.node.jsx react-hello-world.node.js | bash"
   },
   "devDependencies": {
     "bun-types": "latest",

@@ -30,17 +30,23 @@ runMiniVan 0.5.0
 echo "# Benchmarking Hello World"
 
 echo "## Running benchmark for Bun with react@18.3.0"
-bench "bun run 0.4.2/react-hello-world.jsx"
+bench "bun run 0.4.2/react-hello-world.bun.jsx"
 
 echo "## Running benchmark for Deno with react@18.3.0"
 bench "deno run --allow-net 0.4.2/react-hello-world.deno.jsx"
 
+echo "## Running benchmark for Node with react@18.3.0"
+bench "node 0.4.2/react-hello-world.node.js"
+
 runHelloWorld() {
   echo "## Running benchmark for Bun with mini-van-plate@$1"
-  bench "bun run $1/van-plate-hello-world.js"
+  bench "bun run $1/van-plate-hello-world.bun.js"
 
   echo "## Running benchmark for Deno with mini-van-plate@$1"
   bench "deno run --allow-net $1/van-plate-hello-world.deno.js"
+
+  echo "## Running benchmark for Node with mini-van-plate@$1"
+  bench "node $1/van-plate-hello-world.node.js"
 }
 
 runHelloWorld 0.4.2
