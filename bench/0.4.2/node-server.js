@@ -11,4 +11,4 @@ createServer((req, res) => {
   res.statusCode = 200
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
   res.end(page())
-}).listen(Number(process.argv[2] ?? "8080"))
+}).listen(Number(process.argv[2] ?? 8080))
