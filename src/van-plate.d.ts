@@ -30,8 +30,8 @@ export interface Van {
   readonly derive: <T>(f: () => T) => State<T>
   readonly add: (dom: Element, ...children: readonly ChildDom[]) => Element
   readonly _: (f: () => PropValue) => () => PropValue
-  readonly tags: Record<string, TagFunc>
-  readonly tagsNS: (namespaceURI: string) => Record<string, TagFunc>
+  readonly tags: Readonly<Record<string, TagFunc>>
+  readonly tagsNS: (namespaceURI: string) => Readonly<Record<string, TagFunc>>
   readonly html: (first?: Props | ChildDom, ...rest: readonly ChildDom[]) => string
 }
 
