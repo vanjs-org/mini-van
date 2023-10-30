@@ -15,7 +15,7 @@ export type Props = Record<string, PropValue | StateView<PropValue> | (() => Pro
 
 export interface Element { render(): string }
 
-export type ValidChildDomValue = Primitive | Element | null | undefined
+export type ValidChildDomValue = Primitive | Element | DocumentFragment | null | undefined
 
 export type BindingFunc = (dom: any) => ValidChildDomValue
 

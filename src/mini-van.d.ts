@@ -14,7 +14,7 @@ export type PropValue = Primitive | ((e: any) => void) | null
 export type Props = Record<string, PropValue | StateView<PropValue> | (() => PropValue)>
 
 export type ValidChildDomValue<ElementType, TextNodeType> =
-  Primitive | ElementType | TextNodeType | null | undefined
+  Primitive | DocumentFragment | ElementType | TextNodeType | null | undefined
 
 export type BindingFunc<ElementType, TextNodeType> =
   | ((dom?: ElementType | TextNodeType) => ValidChildDomValue<ElementType, TextNodeType>)
@@ -37,9 +37,9 @@ type Tags<ElementType, TextNodeType> = Readonly<Record<string, TagFunc<ElementTy
 
 // Tags type in browser context, which contains the signatures to tag functions that return
 // specialized DOM elements.
-type BrowserTags = Tags<Element, Text> & {
+type BrowserTags = Tags<Element, Text> & ({
   [K in keyof HTMLElementTagNameMap]: TagFunc<Element, Text, HTMLElementTagNameMap[K]>
-}
+})
 
 export interface VanObj<ElementType, TextNodeType> {
   readonly state: <T>(initVal: T) => State<T>
