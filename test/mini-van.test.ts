@@ -148,6 +148,13 @@ const runTests = (van: Van, msgDom: Element) => {
       assertEq(dom.outerHTML, '<div>1<span>2</span><p>Prefix - abc</p>abcabc - Suffix<p data-index="1" data-id="4" data-title="abc" data-text="Prefix - abcabc - Suffix">12abcabcabc</p><button onclick="alert(&quot;Hello&quot;)">Button1</button><button>Button2</button><div>abc</div><pre>abcabc</pre></div>')
     },
 
+    fragment: () => {
+      const fragment = new DocumentFragment
+      fragment.append(div(1), div(2))
+      const dom = div(div(0), fragment)
+      assertEq(dom.outerHTML, "<div><div>0</div><div>1</div><div>2</div></div>")
+    },
+
     html: () => {
       assertEq(van.html(
         head(title("Hello")),

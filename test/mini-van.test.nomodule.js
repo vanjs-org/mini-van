@@ -93,6 +93,12 @@
         }, () => state1.val, () => state2.oldVal, () => van2.val(state3), () => van2.val(state4)), button({ onclick: van2._(() => state5.val ? 'console.log("Hello")' : 'alert("Hello")') }, "Button1"), button({ onclick: van2._(() => state6.val ? () => console.log("Hello") : () => alert("Hello")) }, "Button2"), () => (state5.val ? pre : div2)(state3), () => (state6.oldVal ? pre : div2)(state4));
         assertEq(dom.outerHTML, '<div>1<span>2</span><p>Prefix - abc</p>abcabc - Suffix<p data-index="1" data-id="4" data-title="abc" data-text="Prefix - abcabc - Suffix">12abcabcabc</p><button onclick="alert(&quot;Hello&quot;)">Button1</button><button>Button2</button><div>abc</div><pre>abcabc</pre></div>');
       },
+      fragment: () => {
+        const fragment = new DocumentFragment();
+        fragment.append(div2(1), div2(2));
+        const dom = div2(div2(0), fragment);
+        assertEq(dom.outerHTML, "<div><div>0</div><div>1</div><div>2</div></div>");
+      },
       html: () => {
         assertEq(van2.html(head(title("Hello")), body(div2("World"))), "<!DOCTYPE html><html><head><title>Hello</title></head><body><div>World</div></body></html>");
         assertEq(van2.html({ lang: "en" }, head(title("Hello")), body(div2("World"))), '<!DOCTYPE html><html lang="en"><head><title>Hello</title></head><body><div>World</div></body></html>');
