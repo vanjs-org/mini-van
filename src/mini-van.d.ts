@@ -31,15 +31,24 @@ export type ChildDom<ElementType extends HasFirstChild, TextNodeType> =
   | BindingFunc<ElementType, TextNodeType>
   | readonly ChildDom<ElementType, TextNodeType>[]
 
-type AddFunc<ElementType extends HasFirstChild, TextNodeType> =
+export type AddFunc<ElementType extends HasFirstChild, TextNodeType> =
   (dom: ElementType, ...children: readonly ChildDom<ElementType, TextNodeType>[]) => ElementType
 
 export type TagFunc<ElementType extends HasFirstChild, TextNodeType, ResultType = ElementType> =
   (first?: Props | ChildDom<ElementType, TextNodeType>,
     ...rest: readonly ChildDom<ElementType, TextNodeType>[]) => ResultType
 
-type Tags<ElementType extends HasFirstChild, TextNodeType> =
+export type Tags<ElementType extends HasFirstChild, TextNodeType> =
   Readonly<Record<string, TagFunc<ElementType, TextNodeType>>>
+
+export type TagsNSFunc<ElementType extends HasFirstChild, TextNodeType> =
+  (namespaceURI: string) => Tags<ElementType, TextNodeType>
+
+export type HtmlFunc<ElementType extends HasFirstChild, TextNodeType> =
+  (first?: Props | ChildDom<ElementType, TextNodeType>,
+    ...rest: readonly ChildDom<ElementType, TextNodeType>[]) => string
+
+export type UnderscoreFunc = (f: () => PropValue) => () => PropValue
 
 // Tags type in browser context, which contains the signatures to tag functions that return
 // specialized DOM elements.
@@ -48,18 +57,20 @@ type BrowserTags = Tags<Element, Text> & {
 }
 
 export interface VanObj<ElementType extends HasFirstChild, TextNodeType> {
+  readonly _BindingFunc?: BindingFunc<ElementType, TextNodeType>
+  readonly _ChildDom?: ChildDom<ElementType, TextNodeType>
+  readonly _ValidChildDomValue?: ValidChildDomValue<ElementType, TextNodeType>
   readonly state: <T>(initVal: T) => State<T>
   readonly val: <T>(s: T | StateView<T>) => T
   readonly oldVal: <T>(s: T | StateView<T>) => T
   readonly derive: <T>(f: () => T) => State<T>
   readonly add: AddFunc<ElementType, TextNodeType>
-  readonly _: (f: () => PropValue) => () => PropValue
+  readonly _: UnderscoreFunc
   readonly tags: Tags<ElementType, TextNodeType>
-  readonly tagsNS: (namespaceURI: string) => Tags<ElementType, TextNodeType>
+  readonly tagsNS: TagsNSFunc<ElementType, TextNodeType>
 
   // Mini-Van specific API
-  html: (first?: Props | ChildDom<ElementType, TextNodeType>,
-    ...rest: readonly ChildDom<ElementType, TextNodeType>[]) => string
+  html: HtmlFunc<ElementType, TextNodeType>
 }
 
 export interface Van extends VanObj<Element, Text> {
