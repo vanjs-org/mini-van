@@ -46,7 +46,7 @@ export interface Van {
   readonly val: <T>(s: T | StateView<T>) => T
   readonly oldVal: <T>(s: T | StateView<T>) => T
   readonly derive: <T>(f: () => T) => State<T>
-  readonly add: AddFunc<any, any>
+  readonly add: AddFunc
   readonly _: UnderscoreFunc
   readonly tags: Tags
   readonly tagsNS: TagsNSFunc
