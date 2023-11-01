@@ -38,6 +38,8 @@ export type TagFunc<V extends VanShape = PlateVan> = V['tags'][string]
 
 export type Tags<V extends VanShape = PlateVan> = V['tags']
 
+export type TagsNSFunc<V extends VanShape = PlateVan> = V['tagsNS']
+
 // A generic Van object that can be shared on both client-side and server-side.
 // Tag functions and `add` don't have too much type checking as it's hard to unify
 // the type system for DOM nodes in between client-side and server-side.
