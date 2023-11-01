@@ -23,6 +23,7 @@ import type {
 	TagsNSFunc as MiniTagsNSFunc,
 	ValidChildDomValue as MiniValidChildDomValue,
 } from './mini-van'
+
 export type { Primitive, Props, PropValue, State, StateView, UnderscoreFunc }
 
 export type ValidChildDomValue<V extends VanShape = PlateVan> = Exclude<V['_ValidChildDomValue'], undefined>
@@ -59,7 +60,7 @@ export type VanShape = {
 	readonly oldVal:<T>(s:T|StateView<T>)=>T
 	readonly derive:<T>(f:()=>T)=>State<T>
 	readonly _:UnderscoreFunc
-}&(({
+}&({
 	readonly _BindingFunc?:PlateBindingFunc
 	readonly _ChildDom?:PlateChildDom
 	readonly _ValidChildDomValue?:PlateValidChildDomValue
@@ -67,7 +68,7 @@ export type VanShape = {
 	readonly html: PlateHtmlFunc
 	readonly tags: PlateTags
 	readonly tagsNS: PlateTagsNSFunc
-})|({
+}|{
 	readonly _BindingFunc?:MiniBindingFunc<any, any>
 	readonly _ChildDom?:MiniChildDom<any, any>
 	readonly _ValidChildDomValue?:MiniValidChildDomValue<any, any>
@@ -75,4 +76,4 @@ export type VanShape = {
 	readonly html: MiniHtmlFunc<any, any>
 	readonly tags: MiniTags<any, any>
 	readonly tagsNS: MiniTagsNSFunc<any, any>
-}))
+})
