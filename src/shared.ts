@@ -55,23 +55,23 @@ export interface VanObj<
   readonly html: V['html']
 }
 export type VanShape = {
-  readonly state:<T>(initVal:T)=>State<T>
-  readonly val:<T>(s:T|StateView<T>)=>T
-  readonly oldVal:<T>(s:T|StateView<T>)=>T
-  readonly derive:<T>(f:()=>T)=>State<T>
-  readonly _:UnderscoreFunc
+  readonly state: <T>(initVal: T) => State<T>
+  readonly val: <T>(s: T|StateView<T>) => T
+  readonly oldVal: <T>(s: T|StateView<T>) => T
+  readonly derive: <T>(f: () => T) => State<T>
+  readonly _: UnderscoreFunc
 }&({
-  readonly _BindingFunc?:PlateBindingFunc
-  readonly _ChildDom?:PlateChildDom
-  readonly _ValidChildDomValue?:PlateValidChildDomValue
+  readonly _BindingFunc?: PlateBindingFunc
+  readonly _ChildDom?: PlateChildDom
+  readonly _ValidChildDomValue?: PlateValidChildDomValue
   readonly add: PlateAddFunc
   readonly html: PlateHtmlFunc
   readonly tags: PlateTags
   readonly tagsNS: PlateTagsNSFunc
 }|{
-  readonly _BindingFunc?:MiniBindingFunc<any, any>
-  readonly _ChildDom?:MiniChildDom<any, any>
-  readonly _ValidChildDomValue?:MiniValidChildDomValue<any, any>
+  readonly _BindingFunc?: MiniBindingFunc<any, any>
+  readonly _ChildDom?: MiniChildDom<any, any>
+  readonly _ValidChildDomValue?: MiniValidChildDomValue<any, any>
   readonly add: MiniAddFunc<any, any>
   readonly html: MiniHtmlFunc<any, any>
   readonly tags: MiniTags<any, any>
