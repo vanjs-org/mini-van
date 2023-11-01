@@ -17,7 +17,7 @@ export interface Element { render(): string }
 
 export type ValidChildDomValue = Primitive | Element | null | undefined
 
-export type BindingFunc = (dom: Element) => ValidChildDomValue
+export type BindingFunc = (dom?: Element) => ValidChildDomValue
 
 export type ChildDom = ValidChildDomValue | StateView<Primitive | null | undefined> | BindingFunc | readonly ChildDom[]
 
@@ -39,9 +39,6 @@ export interface ElementProto {
 }
 
 export interface Van {
-  readonly _BindingFunc?: BindingFunc
-  readonly _ChildDom?: ChildDom
-  readonly _ValidChildDomValue?: ValidChildDomValue
   readonly state: <T>(initVal: T) => State<T>
   readonly val: <T>(s: T | StateView<T>) => T
   readonly oldVal: <T>(s: T | StateView<T>) => T

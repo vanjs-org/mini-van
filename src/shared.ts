@@ -1,51 +1,61 @@
 import type {
-  AddFunc as PlateAddFunc,
+  BindingFunc as MiniBindingFunc,
+  ChildDom as MiniChildDom,
+  TagFunc as MiniTagFunc,
+  Tags as MiniTags,
+  ValidChildDomValue as MiniValidChildDomValue,
+  Van as MiniVan
+} from './mini-van'
+import type {
   BindingFunc as PlateBindingFunc,
   ChildDom as PlateChildDom,
-  HtmlFunc as PlateHtmlFunc,
   Primitive,
   Props,
   PropValue,
   State,
   StateView,
+  TagFunc as PlateTagFunc,
   Tags as PlateTags,
-  TagsNSFunc as PlateTagsNSFunc,
   UnderscoreFunc,
   ValidChildDomValue as PlateValidChildDomValue,
-  Van as PlateVan
+  Van as VanPlate
 } from './van-plate'
-import type {
-  AddFunc as MiniAddFunc,
-  BindingFunc as MiniBindingFunc,
-  ChildDom as MiniChildDom,
-  HtmlFunc as MiniHtmlFunc,
-  Tags as MiniTags,
-  TagsNSFunc as MiniTagsNSFunc,
-  ValidChildDomValue as MiniValidChildDomValue,
-} from './mini-van'
 
 export type { Primitive, Props, PropValue, State, StateView, UnderscoreFunc }
 
-export type ValidChildDomValue<V extends VanShape = PlateVan> = Exclude<V['_ValidChildDomValue'], undefined>
+export type ValidChildDomValue<V extends VanShape> =
+  V extends MiniVan
+    ? MiniValidChildDomValue<Element, Text>
+    : PlateValidChildDomValue
 
-export type BindingFunc<V extends VanShape = PlateVan> = Exclude<V['_BindingFunc'], undefined>
+export type BindingFunc<V extends VanShape> =
+  V extends MiniVan
+    ? MiniBindingFunc<Element, Text>
+    : PlateBindingFunc
 
-export type ChildDom<V extends VanShape = PlateVan> = Exclude<V['_ChildDom'], undefined>
+export type ChildDom<V extends VanShape> =
+  V extends MiniVan
+    ? MiniChildDom<Element, Text>
+    : PlateChildDom
 
-export type AddFunc<V extends VanShape = PlateVan> = V['add']
+export type AddFunc<V extends VanShape> = V['add']
 
-export type TagFunc<V extends VanShape = PlateVan> = V['tags'][string]
+export type TagFunc<V extends VanShape> =
+  V extends MiniVan
+    ? MiniTagFunc<Element, Text>
+    : PlateTagFunc
 
-export type Tags<V extends VanShape = PlateVan> = V['tags']
+export type Tags<V extends VanShape> =
+  V extends MiniVan
+    ? MiniTags<Element, Text>
+    : PlateTags
 
-export type TagsNSFunc<V extends VanShape = PlateVan> = V['tagsNS']
+export type TagsNSFunc<V extends VanShape> = V['tagsNS']
 
 // A generic Van object that can be shared on both client-side and server-side.
 // Tag functions and `add` don't have too much type checking as it's hard to unify
 // the type system for DOM nodes in between client-side and server-side.
-export interface VanObj<
-  V extends VanShape = PlateVan
-> {
+export interface VanObj<V extends VanShape> {
   readonly state: <T>(initVal: T) => State<T>
   readonly val: <T>(s: T | StateView<T>) => T
   readonly oldVal: <T>(s: T | StateView<T>) => T
@@ -56,26 +66,11 @@ export interface VanObj<
   readonly tagsNS: V['tagsNS']
   readonly html: V['html']
 }
-export type VanShape = {
+type VanCommon = {
   readonly state: <T>(initVal: T) => State<T>
   readonly val: <T>(s: T|StateView<T>) => T
   readonly oldVal: <T>(s: T|StateView<T>) => T
   readonly derive: <T>(f: () => T) => State<T>
   readonly _: UnderscoreFunc
-}&({
-  readonly _BindingFunc?: PlateBindingFunc
-  readonly _ChildDom?: PlateChildDom
-  readonly _ValidChildDomValue?: PlateValidChildDomValue
-  readonly add: PlateAddFunc
-  readonly html: PlateHtmlFunc
-  readonly tags: PlateTags
-  readonly tagsNS: PlateTagsNSFunc
-}|{
-  readonly _BindingFunc?: MiniBindingFunc<any, any>
-  readonly _ChildDom?: MiniChildDom<any, any>
-  readonly _ValidChildDomValue?: MiniValidChildDomValue<any, any>
-  readonly add: MiniAddFunc<any, any>
-  readonly html: MiniHtmlFunc<any, any>
-  readonly tags: MiniTags<any, any>
-  readonly tagsNS: MiniTagsNSFunc<any, any>
-})
+}
+export type VanShape = VanCommon&(MiniVan|VanPlate)

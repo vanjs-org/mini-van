@@ -57,9 +57,6 @@ type BrowserTags = Tags<Element, Text> & {
 }
 
 export interface VanObj<ElementType extends HasFirstChild, TextNodeType> {
-  readonly _BindingFunc?: BindingFunc<ElementType, TextNodeType>
-  readonly _ChildDom?: ChildDom<ElementType, TextNodeType>
-  readonly _ValidChildDomValue?: ValidChildDomValue<ElementType, TextNodeType>
   readonly state: <T>(initVal: T) => State<T>
   readonly val: <T>(s: T | StateView<T>) => T
   readonly oldVal: <T>(s: T | StateView<T>) => T
