@@ -33,6 +33,10 @@ Deno.test("escape", () => {
   assertEquals(div("<input a && b>").render(), "<div>&lt;input a &amp;&amp; b&gt;</div>")
 })
 
+Deno.test("escapeAttr", () => {
+  assertEquals(input({value: '"text"'}).render(), '<input value="&quot;text&quot;">')
+})
+
 Deno.test("nested children", () => {
   assertEquals(ul([li("Item 1"), li("Item 2"), li("Item 3")]).render(),
     "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>")
