@@ -47,8 +47,11 @@ type BrowserTags = Tags<Element, Text> & {
   [K in keyof HTMLElementTagNameMap]: TagFunc<Element, Text, HTMLElementTagNameMap[K]>
 }
 
+declare function state<T>(initVal: T): State<T>
+declare function state<T>(): State<T | undefined>
+
 export interface VanObj<ElementType extends HasFirstChild, TextNodeType> {
-  readonly state: <T>(initVal: T) => State<T>
+  readonly state: typeof state
   readonly val: <T>(s: T | StateView<T>) => T
   readonly oldVal: <T>(s: T | StateView<T>) => T
   readonly derive: <T>(f: () => T) => State<T>
