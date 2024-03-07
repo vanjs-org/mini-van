@@ -9,12 +9,10 @@ let stateProto = {get oldVal() { return this.val }}, objProto = protoOf(statePro
 
 let state = initVal => ({__proto__: stateProto, val: initVal})
 
-let val = s => protoOf(s ?? 0) === stateProto ? s.val : s
-
 let plainValue = (k, v) => {
   let protoOfV = protoOf(v ?? 0)
   return protoOfV === stateProto ? v.val :
-    protoOfV === funcProto && (!k?.startsWith("on") || v._isBindingFunc) ? v() : v
+    protoOfV !== funcProto || k?.startsWith("on") ? v : v()
 }
 
 let add = (dom, ...children) =>
@@ -24,7 +22,7 @@ let add = (dom, ...children) =>
   dom)
 
 let vanWithDoc = doc => {
-  let tagsNS = ns => new Proxy((name, ...args) => {
+  let tag = (ns, name, ...args) => {
     let [props, ...children] = protoOf(args[0] ?? 0) === objProto ? args : [{}, ...args]
     let dom = ns ? doc.createElementNS(ns, name) : doc.createElement(name)
     for (let [k, v] of Object.entries(props)) {
@@ -34,13 +32,13 @@ let vanWithDoc = doc => {
       protoOf(plainV) !== funcProto && dom.setAttribute(k, plainV)
     }
     return add(dom, ...children)
-  }, {get: (tag, name) => tag.bind(null, name)})
+  }
 
-  let tags = tagsNS()
+  let handler = ns => ({get: (_, name) => tag.bind(_undefined, ns, name)})
+  let tags = new Proxy(ns => new Proxy(tag, handler(ns)), handler())
 
   return {
-    add, _: f => (f._isBindingFunc = 1, f), tags, tagsNS, state,
-    val, oldVal: val, derive: f => state(f()),
+    add, tags, state, derive: f => state(f()),
     html: (...args) => "<!DOCTYPE html>" + tags.html(...args).outerHTML,
   }
 }

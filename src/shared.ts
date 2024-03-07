@@ -11,16 +11,15 @@ export type Primitive = string | number | boolean | bigint
 
 export type PropValue = Primitive | ((e: any) => void) | null
 
+declare function state<T>(initVal: T): State<T>
+declare function state<T>(): State<T | undefined>
+
 // A generic Van object that can be shared on both client-side and server-side.
 // Tag functions and `add` don't have too much type checking as it's hard to unify
-// the type system for DOM nodes nbetween client-side and server-side.
+// the type system for DOM nodes between client-side and server-side.
 export interface VanObj {
-  readonly state: <T>(initVal: T) => State<T>
-  readonly val: <T>(s: T | StateView<T>) => T
-  readonly oldVal: <T>(s: T | StateView<T>) => T
+  readonly state: typeof state
   readonly derive: <T>(f: () => T) => State<T>
   readonly add: Function
-  readonly _: (f: () => PropValue) => () => PropValue
-  readonly tags: Record<string, Function>
-  readonly tagsNS: (namespaceURI: string) => Record<string, Function>
+  readonly tags: Record<string, Function> & ((namespaceURI: string) => Record<string, Function>)
 }

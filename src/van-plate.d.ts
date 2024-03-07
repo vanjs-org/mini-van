@@ -25,13 +25,9 @@ export type TagFunc = (first?: Props | ChildDom, ...rest: readonly ChildDom[]) =
 
 export interface Van {
   readonly state: <T>(initVal: T) => State<T>
-  readonly val: <T>(s: T | StateView<T>) => T
-  readonly oldVal: <T>(s: T | StateView<T>) => T
   readonly derive: <T>(f: () => T) => State<T>
   readonly add: (dom: Element, ...children: readonly ChildDom[]) => Element
-  readonly _: (f: () => PropValue) => () => PropValue
-  readonly tags: Readonly<Record<string, TagFunc>>
-  readonly tagsNS: (namespaceURI: string) => Readonly<Record<string, TagFunc>>
+  readonly tags: Readonly<Record<string, TagFunc>> & ((namespaceURI: string) => Readonly<Record<string, TagFunc>>)
   readonly html: (first?: Props | ChildDom, ...rest: readonly ChildDom[]) => string
 }
 

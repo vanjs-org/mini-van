@@ -66,7 +66,7 @@ export interface Van extends VanObj<Element, Text> {
     createElement(s: any): ElementType,
     createTextNode(s: any): TextNodeType,
   }) => VanObj<ElementType, TextNodeType>
-  readonly tags: BrowserTags
+  readonly tags: BrowserTags & ((namespaceURI: string) => Tags<Element, Text>)
 }
 
 declare const van: Van

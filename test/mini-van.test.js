@@ -76,12 +76,12 @@ const runTests = (van, msgDom) => {
             assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li><li>Item 6</li><li>Item 7</li><li>Item 8</li><li>Item 9</li></ul>");
         },
         tagsNS_svg: () => {
-            const { circle, path, svg } = van.tagsNS("http://www.w3.org/2000/svg");
+            const { circle, path, svg } = van.tags("http://www.w3.org/2000/svg");
             const dom = svg({ width: "16px", viewBox: "0 0 50 50" }, circle({ cx: "25", cy: "25", "r": "20", stroke: "black", "stroke-width": "2", fill: "yellow" }), circle({ cx: "16", cy: "20", "r": "2", stroke: "black", "stroke-width": "2", fill: "black" }), circle({ cx: "34", cy: "20", "r": "2", stroke: "black", "stroke-width": "2", fill: "black" }), path({ "d": "M 15 30 Q 25 40, 35 30", stroke: "black", "stroke-width": "2", fill: "transparent" }));
             assertEq(dom.outerHTML, '<svg width="16px" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" stroke="black" stroke-width="2" fill="yellow"></circle><circle cx="16" cy="20" r="2" stroke="black" stroke-width="2" fill="black"></circle><circle cx="34" cy="20" r="2" stroke="black" stroke-width="2" fill="black"></circle><path d="M 15 30 Q 25 40, 35 30" stroke="black" stroke-width="2" fill="transparent"></path></svg>');
         },
         tagsNS_math: () => {
-            const { math, mi, mn, mo, mrow, msup } = van.tagsNS("http://www.w3.org/1998/Math/MathML");
+            const { math, mi, mn, mo, mrow, msup } = van.tags("http://www.w3.org/1998/Math/MathML");
             const dom = math(msup(mi("e"), mrow(mi("i"), mi("π"))), mo("+"), mn("1"), mo("="), mn("0"));
             assertEq(dom.outerHTML, '<math><msup><mi>e</mi><mrow><mi>i</mi><mi>π</mi></mrow></msup><mo>+</mo><mn>1</mn><mo>=</mo><mn>0</mn></math>');
         },
@@ -92,10 +92,10 @@ const runTests = (van, msgDom) => {
             const state5 = van.state(false), state6 = van.derive(() => !state5.val);
             const dom = div(state1, span(state2), p(() => `Prefix - ${state3.val}`), () => `${state4.oldVal} - Suffix`, p({
                 "data-index": state1,
-                "data-id": () => van.val(state2) + 2,
+                "data-id": () => state2.val + 2,
                 "data-title": state3,
-                "data-text": () => `${van.val("Prefix")} - ${van.oldVal(state4)} - ${van.oldVal("Suffix")}`,
-            }, () => state1.val, () => state2.oldVal, () => van.val(state3), () => van.val(state4)), button({ onclick: van._(() => state5.val ? 'console.log("Hello")' : 'alert("Hello")') }, "Button1"), button({ onclick: van._(() => state6.val ? () => console.log("Hello") : () => alert("Hello")) }, "Button2"), () => (state5.val ? pre : div)(state3), () => (state6.oldVal ? pre : div)(state4));
+                "data-text": () => `Prefix - ${state4.oldVal} - Suffix`,
+            }, () => state1.val, () => state2.oldVal, state3, () => state4.val), button({ onclick: van.derive(() => state5.val ? 'console.log("Hello")' : 'alert("Hello")') }, "Button1"), button({ onclick: van.derive(() => state6.val ? () => console.log("Hello") : () => alert("Hello")) }, "Button2"), () => (state5.val ? pre : div)(state3), () => (state6.oldVal ? pre : div)(state4));
             assertEq(dom.outerHTML, '<div>1<span>2</span><p>Prefix - abc</p>abcabc - Suffix<p data-index="1" data-id="4" data-title="abc" data-text="Prefix - abcabc - Suffix">12abcabcabc</p><button onclick="alert(&quot;Hello&quot;)">Button1</button><button>Button2</button><div>abc</div><pre>abcabc</pre></div>');
         },
         fragment: () => {

@@ -35,12 +35,10 @@ const stateProto = {get oldVal() { return this.val }}
 
 const state = initVal => ({__proto__: stateProto, val: initVal})
 
-const val = s => protoOf(s ?? 0) === stateProto ? s.val : s
-
 const plainValue = (v, k) => {
   let protoOfV = protoOf(v ?? 0)
   return protoOfV === stateProto ? v.val :
-    protoOfV === funcProto && (!k?.startsWith("on") || v._isBindingFunc) ? v() : v
+    protoOfV !== funcProto || k?.startsWith("on") ? v : v()
 }
 
 const elementProto = {
@@ -61,7 +59,7 @@ const elementProto = {
   },
 }
 
-const tags = new Proxy((name, ...args) => {
+const tag = (name, ...args) => {
   const [props, ...children] = protoOf(args[0] ?? 0) === objProto ? args : [{}, ...args]
   const propsStr = Object.entries(props).map(([k, v]) => {
     const plainV = plainValue(v, k), lowerK = k.toLowerCase()
@@ -72,7 +70,10 @@ const tags = new Proxy((name, ...args) => {
   }).join("")
   return {__proto__: elementProto, name, propsStr,
     children: children.flat(Infinity).filter(c => c != null)}
-}, { get: (tag, name) => tag.bind(null, name) })
+}
+
+const handler = {get: (_, name) => tag.bind(null, name)}
+const tags = new Proxy(_ => new Proxy(tag, handler), handler)
 
 const add = (dom, ...children) => {
   dom.children.push(...children.flat(Infinity).filter(c => c != null))
@@ -80,8 +81,7 @@ const add = (dom, ...children) => {
 }
 
 export default {
-  add, _: f => (f._isBindingFunc = 1, f), tags, tagsNS: () => tags, state,
-  val, oldVal: val, derive: f => state(f()),
+  add, tags, state, derive: f => state(f()),
   html: (...args) => {
     const buf = ["<!DOCTYPE html>"]
     tags.html(...args).renderToBuf(buf)

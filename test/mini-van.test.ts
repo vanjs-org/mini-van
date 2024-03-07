@@ -105,7 +105,7 @@ const runTests = (van: Van, msgDom: Element) => {
     },
 
     tagsNS_svg: () => {
-      const {circle, path, svg} = van.tagsNS("http://www.w3.org/2000/svg")
+      const {circle, path, svg} = van.tags("http://www.w3.org/2000/svg")
       const dom = svg({width: "16px", viewBox: "0 0 50 50"},
         circle({cx: "25", cy: "25", "r": "20", stroke: "black", "stroke-width": "2", fill: "yellow"}),
         circle({cx: "16", cy: "20", "r": "2", stroke: "black", "stroke-width": "2", fill: "black"}),
@@ -116,7 +116,7 @@ const runTests = (van: Van, msgDom: Element) => {
     },
 
     tagsNS_math: () => {
-      const {math, mi, mn, mo, mrow, msup} = van.tagsNS("http://www.w3.org/1998/Math/MathML")
+      const {math, mi, mn, mo, mrow, msup} = van.tags("http://www.w3.org/1998/Math/MathML")
       const dom = math(msup(mi("e"), mrow(mi("i"), mi("π"))), mo("+"), mn("1"), mo("="), mn("0"))
       assertEq(dom.outerHTML, '<math><msup><mi>e</mi><mrow><mi>i</mi><mi>π</mi></mrow></msup><mo>+</mo><mn>1</mn><mo>=</mo><mn>0</mn></math>')
     },
@@ -131,14 +131,14 @@ const runTests = (van: Van, msgDom: Element) => {
         state1, span(state2), p(() => `Prefix - ${state3.val}`), () => `${state4.oldVal} - Suffix`,
         p({
           "data-index": state1,
-          "data-id": () => van.val(state2) + 2,
+          "data-id": () => state2.val + 2,
           "data-title": state3,
-          "data-text": () => `${van.val("Prefix")} - ${van.oldVal(state4)} - ${van.oldVal("Suffix")}`,
-        }, () => state1.val, () => state2.oldVal, () => van.val(state3), () => van.val(state4)),
-        button({onclick: van._(() => state5.val ? 'console.log("Hello")' : 'alert("Hello")')},
+          "data-text": () => `Prefix - ${state4.oldVal} - Suffix`,
+        }, () => state1.val, () => state2.oldVal, state3, () => state4.val),
+        button({onclick: van.derive(() => state5.val ? 'console.log("Hello")' : 'alert("Hello")')},
           "Button1"
         ),
-        button({onclick: van._(
+        button({onclick: van.derive(
           () => state6.val ? () => console.log("Hello") : () => alert("Hello"))},
           "Button2"
         ),
