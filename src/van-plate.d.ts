@@ -24,7 +24,7 @@ export type ChildDom = ValidChildDomValue | StateView<Primitive | null | undefin
 export type TagFunc = (first?: Props | ChildDom, ...rest: readonly ChildDom[]) => Element
 
 export interface Van {
-  readonly state: <T>(initVal: T) => State<T>
+  readonly state: <T>(initVal?: T) => State<T>
   readonly derive: <T>(f: () => T) => State<T>
   readonly add: (dom: Element, ...children: readonly ChildDom[]) => Element
   readonly tags: Readonly<Record<string, TagFunc>> & ((namespaceURI: string) => Readonly<Record<string, TagFunc>>)
