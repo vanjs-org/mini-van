@@ -177,7 +177,7 @@ export default () => html(
             b(
               "Mini-Van",
             ),
-            " can be used on the server side as a template engine to render dynamic web content for HTTP servers. An NPM package was published here: ",
+            " can be used on the server side as a template engine to render dynamic web content for HTTP servers. An NPM package was published here: ",
             a({href: "https://www.npmjs.com/package/mini-van-plate", class: "w3-hover-opacity"},
               "www.npmjs.com/package/mini-van-plate",
             ),
@@ -264,7 +264,7 @@ export default () => html(
             code({class: "symbol"},
               "van-plate.js",
             ),
-            " that is equivalent to:",
+            " that is equivalent to:",
           ),
           pre(
             code({class: "language-js"},
