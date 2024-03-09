@@ -23,8 +23,11 @@ export type ChildDom = ValidChildDomValue | StateView<Primitive | null | undefin
 
 export type TagFunc = (first?: Props | ChildDom, ...rest: readonly ChildDom[]) => Element
 
+declare function state<T>(): State<T>
+declare function state<T>(initVal: T): State<T>
+
 export interface Van {
-  readonly state: <T>(initVal?: T) => State<T>
+  readonly state: typeof state
   readonly derive: <T>(f: () => T) => State<T>
   readonly add: (dom: Element, ...children: readonly ChildDom[]) => Element
   readonly tags: Readonly<Record<string, TagFunc>> & ((namespaceURI: string) => Readonly<Record<string, TagFunc>>)
