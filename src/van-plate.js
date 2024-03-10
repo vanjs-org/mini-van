@@ -47,7 +47,8 @@ const elementProto = {
     if (noChild[this.name]) return
     for (const c of this.children) {
       const plainC = plainValue(c)
-      protoOf(plainC) === elementProto ? plainC.renderToBuf(buf) : buf.push(escape(plainC.toString()))
+      protoOf(plainC) === elementProto ? plainC.renderToBuf(buf) :
+        buf.push((this.name === "script" ? x => x : escape)(plainC.toString()))
     }
     buf.push(`</${this.name}>`)
   },

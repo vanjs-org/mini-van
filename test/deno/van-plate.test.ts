@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.184.0/testing/asserts.ts";
 import van from "../../src/van-plate.js"
 
-const {a, body, br, button, div, head, input, hr, li, p, pre, span, title, ul} = van.tags
+const {a, body, br, button, div, head, hr, input, li, p, pre, script, span, title, ul} = van.tags
 
 Deno.test("tags", () => {
   assertEquals(div(
@@ -35,6 +35,10 @@ Deno.test("escape", () => {
 
 Deno.test("escapeAttr", () => {
   assertEquals(input({value: '"text"'}).render(), '<input value="&quot;text&quot;">')
+})
+
+Deno.test("don't escape script tag", () => {
+  assertEquals(script("console.log(a < b && c > d)").render(), "<script>console.log(a < b && c > d)</script>")
 })
 
 Deno.test("nested children", () => {
