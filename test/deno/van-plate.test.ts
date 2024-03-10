@@ -114,7 +114,7 @@ Deno.test("onclick handler", () => {
   }
 })
 
-Deno.test("tagsNS: svg", () => {
+Deno.test("tags: svg", () => {
   const {circle, path, svg} = van.tags("http://www.w3.org/2000/svg")
   const dom = svg({width: "16px", viewBox: "0 0 50 50"},
     circle({cx: "25", cy: "25", "r": "20", stroke: "black", "stroke-width": "2", fill: "yellow"}),
@@ -125,7 +125,7 @@ Deno.test("tagsNS: svg", () => {
   assertEquals(dom.render(), '<svg width="16px" viewbox="0 0 50 50"><circle cx="25" cy="25" r="20" stroke="black" stroke-width="2" fill="yellow"></circle><circle cx="16" cy="20" r="2" stroke="black" stroke-width="2" fill="black"></circle><circle cx="34" cy="20" r="2" stroke="black" stroke-width="2" fill="black"></circle><path d="M 15 30 Q 25 40, 35 30" stroke="black" stroke-width="2" fill="transparent"></path></svg>')
 })
 
-Deno.test("tagsNS: math", () => {
+Deno.test("tags: math", () => {
   const {math, mi, mn, mo, mrow, msup} = van.tags("http://www.w3.org/1998/Math/MathML")
   const dom = math(msup(mi("e"), mrow(mi("i"), mi("π"))), mo("+"), mn("1"), mo("="), mn("0"))
   assertEquals(dom.render(), '<math><msup><mi>e</mi><mrow><mi>i</mi><mi>π</mi></mrow></msup><mo>+</mo><mn>1</mn><mo>=</mo><mn>0</mn></math>')
