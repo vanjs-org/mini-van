@@ -23,3 +23,7 @@ export interface VanObj {
   readonly add: Function
   readonly tags: Record<string, Function> & ((namespaceURI: string) => Record<string, Function>)
 }
+
+export declare function getVan(): VanObj
+export declare function vanWrap<T>(van: VanObj, cb: (van: VanObj) => T): T
+export declare function vanWrapper<CB extends (...opts: any[]) => any>(cb: CB): CB
