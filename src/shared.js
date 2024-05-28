@@ -23,3 +23,8 @@ export function vanWrapper(cb) {
   const van = getVan();
   return (...opt) => vanWrap(van, () => cb(...opt));
 }
+
+export function useGlobalVan(van) {
+  ctx.push(van);
+  return () => ctx.splice(ctx.indexOf(van), 1);
+}
