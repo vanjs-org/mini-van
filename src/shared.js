@@ -10,9 +10,12 @@ export function getVan() {
 
 export function vanWrap(van, cb) {
   ctx.push(van);
-  const ret = cb(van);
-  ctx.pop();
-  return ret;
+  try {
+    const ret = cb(van);
+    return ret;
+  } finally {
+    ctx.pop();
+  }
 }
 
 
