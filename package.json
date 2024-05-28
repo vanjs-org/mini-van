@@ -49,8 +49,5 @@
     "url": "https://github.com/vanjs-org/mini-van/issues",
     "email": "bugs@vanjs.org"
   },
-  "peerDependencies": {
-    "vanjs-core": "1.x"
-  },
   "homepage": "https://vanjs.org/minivan"
 }
