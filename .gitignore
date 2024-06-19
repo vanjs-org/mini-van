@@ -1,3 +1,4 @@
+push.sh
 node_modules/
 public/*.gz
 test/test.ts
