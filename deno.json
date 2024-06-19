@@ -1,0 +1,19 @@
+{
+  "name": "@vanjs/mini-van-plate",
+  "version": "0.5.6",
+  "publish": {
+    "include": [
+      "src/mini-van.js",
+      "src/mini-van.d.ts",
+      "src/van-plate.js",
+      "src/van-plate.d.ts",
+      "src/shared.js",
+      "src/shared.d.ts"
+    ]
+  },
+  "exports": {
+    ".": "./src/mini-van.js",
+    "./van-plate": "./src/van-plate.js",
+    "./shared": "./src/shared.js"
+  }
+}
