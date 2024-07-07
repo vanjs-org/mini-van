@@ -31,7 +31,7 @@ const escapeAttr = v => v.replace(/"/g, "&quot;")
 
 const protoOf = Object.getPrototypeOf, funcProto = protoOf(protoOf), objProto = protoOf(noChild)
 
-const stateProto = {get oldVal() { return this.val }}
+const stateProto = {get oldVal() { return this.val }, get rawVal() { return this.val }}
 
 const state = initVal => ({__proto__: stateProto, val: initVal})
 

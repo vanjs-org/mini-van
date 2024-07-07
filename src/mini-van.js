@@ -5,7 +5,8 @@
 // Aliasing some builtin symbols to reduce the bundle size.
 let protoOf = Object.getPrototypeOf, _undefined, funcProto = protoOf(protoOf)
 
-let stateProto = {get oldVal() { return this.val }}, objProto = protoOf(stateProto)
+let stateProto = {get oldVal() { return this.val }, get rawVal() { return this.val }}
+let objProto = protoOf(stateProto)
 
 let state = initVal => ({__proto__: stateProto, val: initVal})
 

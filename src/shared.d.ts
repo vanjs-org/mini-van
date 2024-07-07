@@ -1,6 +1,7 @@
 export interface State<T> {
     val: T;
     readonly oldVal: T;
+    readonly rawVal: T;
 }
 export type StateView<T> = Readonly<State<T>>;
 export type Primitive = string | number | boolean | bigint;
