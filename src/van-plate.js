@@ -19,6 +19,11 @@ const noChild = {
   keygen: 1,
 }
 
+const tagsNoEscape = {
+  "script": 1,
+  "style": 1,
+}
+
 const escapeMap = {
   '&': '&amp;',
   '<': '&lt;',
@@ -48,7 +53,7 @@ const elementProto = {
     for (const c of this.children) {
       const plainC = plainValue(c)
       protoOf(plainC) === elementProto ? plainC.renderToBuf(buf) :
-        buf.push((this.name === "script" ? x => x : escape)(plainC.toString()))
+        buf.push((tagsNoEscape[this.name] ? x => x : escape)(plainC.toString()))
     }
     buf.push(`</${this.name}>`)
   },

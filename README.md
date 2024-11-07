@@ -154,7 +154,7 @@ Sample code:
 _Requires Deno `1.35` or later._
 
 ```typescript
-import van from "https://deno.land/x/minivan@0.6.0/src/van-plate.js"
+import van from "https://deno.land/x/minivan@0.6.1/src/van-plate.js"
 
 const {a, body, li, p, ul} = van.tags
 
@@ -195,7 +195,7 @@ _Requires Deno `1.35` or later._
 
 ```typescript
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-import van from "https://deno.land/x/minivan@0.6.0/src/mini-van.js"
+import van from "https://deno.land/x/minivan@0.6.1/src/mini-van.js"
 
 const document = new DOMParser().parseFromString("", "text/html")!
 const {tags, html} = van.vanWithDoc(document)
@@ -235,16 +235,16 @@ Preview via [CodeSandbox](https://codesandbox.io/p/sandbox/github/vanjs-org/vanj
 To get started on the client side, add the line below to your script:
 
 ```javascript
-import van from "https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.6.0.min.js"
+import van from "https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.6.1.min.js"
 ```
 
 To code without ES6 modules, add the following line to your HTML file instead:
 
 ```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.6.0.nomodule.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.6.1.nomodule.min.js"></script>
 ```
 
-Alternative, you can download the files ([`mini-van-0.6.0.min.js`](https://vanjs.org/autodownload?file=mini-van-0.6.0.min.js), [`mini-van-0.6.0.nomodule.min.js`](https://vanjs.org/autodownload?file=mini-van-0.6.0.nomodule.min.js)) and serve them locally.
+Alternative, you can download the files ([`mini-van-0.6.1.min.js`](https://vanjs.org/autodownload?file=mini-van-0.6.1.min.js), [`mini-van-0.6.1.nomodule.min.js`](https://vanjs.org/autodownload?file=mini-van-0.6.1.nomodule.min.js)) and serve them locally.
 
 You can find all relevant **Mini-Van** files in this [Download Table](https://vanjs.org/minivan#download-table).
 
