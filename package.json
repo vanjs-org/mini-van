@@ -1,6 +1,6 @@
 {
   "name": "mini-van-plate",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "A minimalist template engine for DOM generation and manipulation, working for both client-side and server-side rendering",
   "files": [
     "src/mini-van.js",
@@ -37,7 +37,7 @@
   "license": "MIT",
   "devDependencies": {
     "esbuild": "^0.17.19",
-    "node-jq": "^2.3.5",
+    "node-jq": "^6.0.1",
     "terser": "^5.19.2",
     "typescript": "^5.1.6"
   },
