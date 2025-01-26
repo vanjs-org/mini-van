@@ -27,6 +27,15 @@ Deno.test("boolean prop", () => {
   assertEquals(input({checked: true}).render(), '<input checked>')
 })
 
+Deno.test("null prop", () => {
+  assertEquals(div({id: null}).render(), '<div id="null"></div>')
+})
+
+Deno.test("undefined prop", () => {
+  // deno-lint-ignore no-explicit-any
+  assertEquals(div({id: <any>undefined}).render(), '<div id="undefined"></div>')
+})
+
 Deno.test("escape", () => {
   assertEquals(p("<input>").render(), "<p>&lt;input&gt;</p>")
   assertEquals(div("a && b").render(), "<div>a &amp;&amp; b</div>")

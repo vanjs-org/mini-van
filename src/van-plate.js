@@ -72,7 +72,7 @@ const tag = (name, ...args) => {
     return typeof plainV === "boolean" ? (plainV ? " " + k : "") :
       // Disable setting attribute for function-valued properties (mostly event handlers),
       // as they're usually not useful for SSR (server-side rendering).
-      plainV && protoOf(plainV) !== funcProto ? ` ${k}=${JSON.stringify(escapeAttr(plainV.toString()))}` : ""
+      protoOf(plainV ?? 0) !== funcProto ? ` ${k}=${JSON.stringify(escapeAttr(String(plainV)))}` : ""
   }).join("")
   return {__proto__: elementProto, name, propsStr,
     children: children.flat(Infinity).filter(c => c != null)}
