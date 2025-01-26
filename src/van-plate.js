@@ -68,7 +68,7 @@ const elementProto = {
 const tag = (name, ...args) => {
   const [props, ...children] = protoOf(args[0] ?? 0) === objProto ? args : [{}, ...args]
   const propsStr = Object.entries(props).map(([k, v]) => {
-    const plainV = plainValue(v, k), lowerK = k.toLowerCase()
+    const plainV = plainValue(v, k), lowerK = k.startsWith("on") ? k.toLowerCase() : k
     return typeof plainV === "boolean" ? (plainV ? " " + lowerK : "") :
       // Disable setting attribute for function-valued properties (mostly event handlers),
       // as they're usually not useful for SSR (server-side rendering).
