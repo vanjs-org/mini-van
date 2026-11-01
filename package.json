@@ -36,8 +36,7 @@
   "author": "Tao Xin",
   "license": "MIT",
   "devDependencies": {
-    "esbuild": "^0.17.19",
-    "node-jq": "^6.0.1",
+    "esbuild": "^0.28.2",
     "terser": "^5.19.2",
     "typescript": "^5.1.6"
   },
