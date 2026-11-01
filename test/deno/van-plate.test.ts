@@ -27,6 +27,26 @@ Deno.test("boolean prop", () => {
   assertEquals(input({checked: true}).render(), '<input checked>')
 })
 
+Deno.test("computed boolean props", () => {
+  for (const value of [false, true]) {
+    for (const prop of [() => value, van.state(value), van.derive(() => value)]) {
+      assertEquals(button({disabled: prop}, "Save").render(),
+        value ? "<button disabled>Save</button>" : "<button>Save</button>")
+      assertEquals(div({"data-enabled": prop}).render(),
+        value ? "<div data-enabled></div>" : "<div></div>")
+    }
+  }
+})
+
+Deno.test("string boolean props", () => {
+  for (const value of ["false", "true"]) {
+    for (const prop of [value, () => value, van.state(value)]) {
+      assertEquals(button({disabled: prop, "aria-expanded": prop}, "Details").render(),
+        `<button disabled="${value}" aria-expanded="${value}">Details</button>`)
+    }
+  }
+})
+
 Deno.test("null prop", () => {
   assertEquals(div({id: null}).render(), '<div id="null"></div>')
 })
@@ -73,6 +93,30 @@ Deno.test("null or undefined are ignored", () => {
 })
 
 
+Deno.test("nullable children", () => {
+  for (const value of [null, undefined]) {
+    assertEquals(div(() => value).render(), "<div></div>")
+    assertEquals(div(van.state(value)).render(), "<div></div>")
+    assertEquals(div(
+      "Before", [() => value, [van.state(value), () => span("Middle")]],
+      () => 0, () => "", () => false, "After",
+    ).render(), "<div>Before<span>Middle</span>0falseAfter</div>")
+    assertEquals(script(() => value, van.state(value), "a < b").render(), "<script>a < b</script>")
+    assertEquals(style(() => value, van.state(value), "a > b {}").render(),
+      "<style>a > b {}</style>")
+  }
+})
+
+Deno.test("nullable children are evaluated on each render", () => {
+  const value = van.state<string | null | undefined>(null)
+  const dom = div(value, () => value.val == null ? value.val : span(value.val))
+  assertEquals(dom.render(), "<div></div>")
+  value.val = "Visible"
+  assertEquals(dom.render(), "<div>Visible<span>Visible</span></div>")
+  value.val = undefined
+  assertEquals(dom.render(), "<div></div>")
+})
+
 Deno.test("add basic", () => {
   const dom = ul()
   assertEquals(van.add(dom, li("Item 1"), li("Item 2")), dom)
@@ -111,6 +155,16 @@ Deno.test("add: null or undefined are ignored", () => {
   assertEquals(van.add(dom, [[null, [undefined]], undefined], null), dom)
   assertEquals(dom.render(),
     "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li><li>Item 6</li><li>Item 7</li><li>Item 8</li><li>Item 9</li></ul>")
+})
+
+Deno.test("add: nullable children", () => {
+  for (const value of [null, undefined]) {
+    const dom = div("Before")
+    assertEquals(van.add(dom, [() => value, [van.state(value)]]), dom)
+    assertEquals(dom.render(), "<div>Before</div>")
+    van.add(dom, () => span("After"), () => 0, () => "", () => false)
+    assertEquals(dom.render(), "<div>Before<span>After</span>0false</div>")
+  }
 })
 
 Deno.test("onclick handler", () => {
@@ -167,6 +221,13 @@ Deno.test("dummy reactive", () => {
         () => (state6.rawVal ? pre : div)(state4),
       )
   assertEquals(dom.render(), '<div>1<span>2</span><p>Prefix - abc</p>abcabc - Suffix<p data-index="1" data-id="4" data-title="abc" data-text="Prefix - abcabc - Suffix">12abcabcabc</p><button onclick="alert(&quot;Hello&quot;)">Button1</button><button>Button2</button><div>abc</div><pre>abcabc</pre></div>')
+})
+
+Deno.test("html: nullable children", () => {
+  for (const value of [null, undefined]) {
+    assertEquals(van.html(() => value, body(van.state(value), () => 0, () => false)),
+      "<!DOCTYPE html><html><body>0false</body></html>")
+  }
 })
 
 Deno.test("html", () => {

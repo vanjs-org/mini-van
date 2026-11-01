@@ -5,7 +5,7 @@ import type {Van} from "../src/mini-van.d.ts"
 const runTests = (van: Van, msgDom: Element) => {
   const {a, body, button, div, head, input, li, p, pre, span, title, ul} = van.tags
 
-  const assertEq = (lhs: string | Element, rhs: string | Element) => {
+  const assertEq = (lhs: unknown, rhs: unknown) => {
     if (lhs !== rhs) throw new Error(`Assertion failed. Expected equal. Actual lhs: ${lhs}, rhs: ${rhs}`)
   }
 
@@ -20,6 +20,38 @@ const runTests = (van: Van, msgDom: Element) => {
       )
 
       assertEq(dom.outerHTML, '<div><p>👋Hello</p><ul><li>🗺️World</li><li><a href="https://vanjs.org/">🍦VanJS</a></li></ul></div>')
+    },
+
+    tags_booleanProps: () => {
+      for (const value of [false, true]) {
+        const dom = button({disabled: value}, "Save")
+        assertEq(dom.disabled, value)
+        assertEq(dom.getAttribute("disabled"), value ? "" : null)
+        assertEq(input({type: "checkbox", checked: value}).checked, value)
+        assertEq(div({"data-enabled": value}).getAttribute("data-enabled"), value ? "" : null)
+      }
+    },
+
+    tags_computedBooleanProps: () => {
+      for (const value of [false, true]) {
+        for (const prop of [() => value, van.state(value), van.derive(() => value)]) {
+          const dom = button({disabled: prop}, "Save")
+          assertEq(dom.disabled, value)
+          assertEq(dom.getAttribute("disabled"), value ? "" : null)
+          assertEq(div({"data-enabled": prop}).getAttribute("data-enabled"), value ? "" : null)
+        }
+      }
+    },
+
+    tags_stringBooleanProps: () => {
+      for (const value of ["false", "true"]) {
+        for (const prop of [value, () => value, van.state(value)]) {
+          const dom = button({disabled: prop, "aria-expanded": prop}, "Details")
+          assertEq(dom.disabled, true)
+          assertEq(dom.getAttribute("disabled"), value)
+          assertEq(dom.getAttribute("aria-expanded"), value)
+        }
+      }
     },
 
     tags_onclickHandler: () => {
@@ -64,6 +96,17 @@ const runTests = (van: Van, msgDom: Element) => {
         "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>")
     },
 
+    tags_nullableChildren: () => {
+      for (const value of [null, undefined]) {
+        assertEq(div(() => value).outerHTML, "<div></div>")
+        assertEq(div(van.state(value)).outerHTML, "<div></div>")
+        assertEq(div(
+          "Before", [() => value, [van.state(value), () => span("Middle")]],
+          () => 0, () => "", () => false, "After",
+        ).outerHTML, "<div>Before<span>Middle</span>0falseAfter</div>")
+      }
+    },
+
     tags_readonlyProps: () => {
       assertEq(input({list: "datalist1"}).outerHTML, '<input list="datalist1">')
     },
@@ -102,6 +145,16 @@ const runTests = (van: Van, msgDom: Element) => {
       assertEq(van.add(dom, [[undefined, li("Item 7"), null, [li("Item 8")]], null, li("Item 9"), undefined]), dom)
       assertEq(dom.outerHTML,
         "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li><li>Item 6</li><li>Item 7</li><li>Item 8</li><li>Item 9</li></ul>")
+    },
+
+    add_nullableChildren: () => {
+      for (const value of [null, undefined]) {
+        const dom = div("Before")
+        assertEq(van.add(dom, [() => value, [van.state(value)]]), dom)
+        assertEq(dom.outerHTML, "<div>Before</div>")
+        van.add(dom, () => span("After"), () => 0, () => "", () => false)
+        assertEq(dom.outerHTML, "<div>Before<span>After</span>0false</div>")
+      }
     },
 
     tags_svg: () => {
@@ -153,6 +206,13 @@ const runTests = (van: Van, msgDom: Element) => {
       fragment.append(div(1), div(2))
       const dom = div(div(0), fragment)
       assertEq(dom.outerHTML, "<div><div>0</div><div>1</div><div>2</div></div>")
+    },
+
+    html_nullableChildren: () => {
+      for (const value of [null, undefined]) {
+        assertEq(van.html(() => value, body(van.state(value), () => 0, () => false)),
+          "<!DOCTYPE html><html><body>0false</body></html>")
+      }
     },
 
     html: () => {

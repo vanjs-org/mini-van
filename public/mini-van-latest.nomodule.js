@@ -21,7 +21,8 @@
       let dom = ns ? doc.createElementNS(ns, name) : doc.createElement(name);
       for (let [k, v] of Object.entries(props)) {
         let plainV = plainValue(k, v);
-        protoOf(plainV) !== funcProto && dom.setAttribute(k, plainV);
+        if (plainV !== false && protoOf(plainV) !== funcProto)
+          dom.setAttribute(k, plainV === true ? "" : plainV);
       }
       return add(dom, ...children);
     };

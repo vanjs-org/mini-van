@@ -12,6 +12,35 @@
         const dom = div2(p("\u{1F44B}Hello"), ul(li("\u{1F5FA}\uFE0FWorld"), li(a({ href: "https://vanjs.org/" }, "\u{1F366}VanJS"))));
         assertEq(dom.outerHTML, '<div><p>\u{1F44B}Hello</p><ul><li>\u{1F5FA}\uFE0FWorld</li><li><a href="https://vanjs.org/">\u{1F366}VanJS</a></li></ul></div>');
       },
+      tags_booleanProps: () => {
+        for (const value of [false, true]) {
+          const dom = button({ disabled: value }, "Save");
+          assertEq(dom.disabled, value);
+          assertEq(dom.getAttribute("disabled"), value ? "" : null);
+          assertEq(input({ type: "checkbox", checked: value }).checked, value);
+          assertEq(div2({ "data-enabled": value }).getAttribute("data-enabled"), value ? "" : null);
+        }
+      },
+      tags_computedBooleanProps: () => {
+        for (const value of [false, true]) {
+          for (const prop of [() => value, van2.state(value), van2.derive(() => value)]) {
+            const dom = button({ disabled: prop }, "Save");
+            assertEq(dom.disabled, value);
+            assertEq(dom.getAttribute("disabled"), value ? "" : null);
+            assertEq(div2({ "data-enabled": prop }).getAttribute("data-enabled"), value ? "" : null);
+          }
+        }
+      },
+      tags_stringBooleanProps: () => {
+        for (const value of ["false", "true"]) {
+          for (const prop of [value, () => value, van2.state(value)]) {
+            const dom = button({ disabled: prop, "aria-expanded": prop }, "Details");
+            assertEq(dom.disabled, true);
+            assertEq(dom.getAttribute("disabled"), value);
+            assertEq(dom.getAttribute("aria-expanded"), value);
+          }
+        }
+      },
       tags_onclickHandler: () => {
         {
           const dom = div2(button({ onclick: 'alert("Hello")' }, "Click me"));
@@ -39,6 +68,13 @@
         assertEq(ul(li("Item 1"), li("Item 2"), void 0, li("Item 3"), null).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
         assertEq(ul([li("Item 1"), li("Item 2"), void 0, li("Item 3"), null]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
         assertEq(ul([[void 0, li("Item 1"), null, [li("Item 2")]], null, li("Item 3"), void 0]).outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>");
+      },
+      tags_nullableChildren: () => {
+        for (const value of [null, void 0]) {
+          assertEq(div2(() => value).outerHTML, "<div></div>");
+          assertEq(div2(van2.state(value)).outerHTML, "<div></div>");
+          assertEq(div2("Before", [() => value, [van2.state(value), () => span("Middle")]], () => 0, () => "", () => false, "After").outerHTML, "<div>Before<span>Middle</span>0falseAfter</div>");
+        }
       },
       tags_readonlyProps: () => {
         assertEq(input({ list: "datalist1" }).outerHTML, '<input list="datalist1">');
@@ -70,6 +106,15 @@
         assertEq(van2.add(dom, [[void 0, li("Item 7"), null, [li("Item 8")]], null, li("Item 9"), void 0]), dom);
         assertEq(dom.outerHTML, "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li><li>Item 6</li><li>Item 7</li><li>Item 8</li><li>Item 9</li></ul>");
       },
+      add_nullableChildren: () => {
+        for (const value of [null, void 0]) {
+          const dom = div2("Before");
+          assertEq(van2.add(dom, [() => value, [van2.state(value)]]), dom);
+          assertEq(dom.outerHTML, "<div>Before</div>");
+          van2.add(dom, () => span("After"), () => 0, () => "", () => false);
+          assertEq(dom.outerHTML, "<div>Before<span>After</span>0false</div>");
+        }
+      },
       tags_svg: () => {
         const { circle, path: path2, svg } = van2.tags("http://www.w3.org/2000/svg");
         const dom = svg({ width: "16px", viewBox: "0 0 50 50" }, circle({ cx: "25", cy: "25", "r": "20", stroke: "black", "stroke-width": "2", fill: "yellow" }), circle({ cx: "16", cy: "20", "r": "2", stroke: "black", "stroke-width": "2", fill: "black" }), circle({ cx: "34", cy: "20", "r": "2", stroke: "black", "stroke-width": "2", fill: "black" }), path2({ "d": "M 15 30 Q 25 40, 35 30", stroke: "black", "stroke-width": "2", fill: "transparent" }));
@@ -98,6 +143,11 @@
         fragment.append(div2(1), div2(2));
         const dom = div2(div2(0), fragment);
         assertEq(dom.outerHTML, "<div><div>0</div><div>1</div><div>2</div></div>");
+      },
+      html_nullableChildren: () => {
+        for (const value of [null, void 0]) {
+          assertEq(van2.html(() => value, body(van2.state(value), () => 0, () => false)), "<!DOCTYPE html><html><body>0false</body></html>");
+        }
       },
       html: () => {
         assertEq(van2.html(head(title("Hello")), body(div2("World"))), "<!DOCTYPE html><html><head><title>Hello</title></head><body><div>World</div></body></html>");

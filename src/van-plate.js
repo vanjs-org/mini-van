@@ -52,6 +52,7 @@ const elementProto = {
     if (noChild[this.name]) return
     for (const c of this.children) {
       const plainC = plainValue(c)
+      if (plainC == null) continue
       protoOf(plainC) === elementProto ? plainC.renderToBuf(buf) :
         buf.push((tagsNoEscape[this.name] ? x => x : escape)(plainC.toString()))
     }

@@ -24,6 +24,17 @@ You can convert any HTML snippet into **Mini-Van** code with our online [convert
 
 **Mini-Van** is the slimmed-down version of [**VanJS**](https://vanjs.org), which aims to provide an ***ultra-lightweight***, ***zero-dependency***, and ***unopinionated*** Reactive UI framework based on pure vanilla JavaScript and DOM. Compared to **VanJS**, **Mini-Van** further reduces the gzipped minified bundle size to 0.5kB and (_more importantly_) can be used on the server-side as a [template engine](https://en.wikipedia.org/wiki/Web_template_system).
 
+## Attribute Values and Children
+
+In both rendering modes, a boolean `false` omits the attribute, while `true` includes it without a value. This applies to all attribute names. For attributes such as `aria-expanded` or `data-*` that need the text `"true"` or `"false"`, pass a string:
+
+```javascript
+button({disabled: false}, "Save")
+button({"aria-expanded": String(false)}, "Details")
+```
+
+These rules also apply to attribute values supplied by functions or states. Child functions and states that return `null` or `undefined` are ignored; other primitive values, including `0` and `false`, are rendered as text.
+
 ## Server-Side: NPM Integration
 
 **Mini-Van** can be used on the server side as a template engine to render dynamic web content for HTTP servers. An NPM package was published here: [www.npmjs.com/package/mini-van-plate](https://www.npmjs.com/package/mini-van-plate). Thus it can be used in [Node.js](https://nodejs.org/) or [Bun](https://bun.sh/).
@@ -154,7 +165,7 @@ Sample code:
 _Requires Deno `1.35` or later._
 
 ```typescript
-import van from "https://deno.land/x/minivan@0.6.3/src/van-plate.js"
+import van from "https://deno.land/x/minivan@0.6.4/src/van-plate.js"
 
 const {a, body, li, p, ul} = van.tags
 
@@ -195,7 +206,7 @@ _Requires Deno `1.35` or later._
 
 ```typescript
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-import van from "https://deno.land/x/minivan@0.6.3/src/mini-van.js"
+import van from "https://deno.land/x/minivan@0.6.4/src/mini-van.js"
 
 const document = new DOMParser().parseFromString("", "text/html")!
 const {tags, html} = van.vanWithDoc(document)
@@ -235,22 +246,22 @@ Preview via [CodeSandbox](https://codesandbox.io/p/sandbox/github/vanjs-org/vanj
 To get started on the client side, add the line below to your script:
 
 ```javascript
-import van from "https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.6.3.min.js"
+import van from "https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.6.4.min.js"
 ```
 
 To code without ES6 modules, add the following line to your HTML file instead:
 
 ```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.6.3.nomodule.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-0.6.4.nomodule.min.js"></script>
 ```
 
-Alternative, you can download the files ([`mini-van-0.6.3.min.js`](https://vanjs.org/autodownload?file=mini-van-0.6.3.min.js), [`mini-van-0.6.3.nomodule.min.js`](https://vanjs.org/autodownload?file=mini-van-0.6.3.nomodule.min.js)) and serve them locally.
+Alternative, you can download the files ([`mini-van-0.6.4.min.js`](https://vanjs.org/autodownload?file=mini-van-0.6.4.min.js), [`mini-van-0.6.4.nomodule.min.js`](https://vanjs.org/autodownload?file=mini-van-0.6.4.nomodule.min.js)) and serve them locally.
 
 You can find all relevant **Mini-Van** files in this [Download Table](https://vanjs.org/minivan#download-table).
 
 ## API Reference
 
-**Mini-Van** exposes the same set of APIs as **VanJS** for DOM composition and manipulation. Thus for API reference, you can refer to [DOM Composition and Manipulation](https://vanjs.org/tutorial#dom) section of **VanJS** tutorial. Note that: state and state binding are not supported in **Mini-Van**.
+**Mini-Van** exposes the same set of APIs as **VanJS** for DOM composition and manipulation. Thus for API reference, you can refer to [DOM Composition and Manipulation](https://vanjs.org/tutorial#dom) section of **VanJS** tutorial. Note that: reactive updates are not supported in **Mini-Van**.
 
 ## Support & Feedback
 

@@ -30,7 +30,8 @@ let vanWithDoc = doc => {
       let plainV = plainValue(k, v)
       // Disable setting attribute for function-valued properties (mostly event handlers),
       // as they're usually not useful for SSR (server-side rendering).
-      protoOf(plainV) !== funcProto && dom.setAttribute(k, plainV)
+      if (plainV !== false && protoOf(plainV) !== funcProto)
+        dom.setAttribute(k, plainV === true ? "" : plainV)
     }
     return add(dom, ...children)
   }
