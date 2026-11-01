@@ -1,5 +1,6 @@
 push.sh
 node_modules/
+.DS_Store
 public/*.gz
 test/test.ts
 test/test.js
