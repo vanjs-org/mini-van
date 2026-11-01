@@ -145,7 +145,7 @@ Similar to `van-plate` mode, we have a helper function `html` defined in `mini-v
 
 ## Server-Side: Deno Integration
 
-Similarly, **Mini-Van** can work with Deno as well, in both `van-plate` mode and `mini-van` mode. A Deno module was published here: [deno.land/x/minivan](https://deno.land/x/minivan).
+Similarly, **Mini-Van** can work with Deno as well, in both `van-plate` mode and `mini-van` mode. The examples below import Mini-Van directly from a versioned GitHub tag.
 
 ### `van-plate` mode
 
@@ -154,7 +154,7 @@ Sample code:
 _Requires Deno `1.35` or later._
 
 ```typescript
-import van from "https://deno.land/x/minivan@0.6.4/src/van-plate.js"
+import van from "https://raw.githubusercontent.com/vanjs-org/mini-van/0.6.4/src/van-plate.js"
 
 const {a, body, li, p, ul} = van.tags
 
@@ -195,7 +195,7 @@ _Requires Deno `1.35` or later._
 
 ```typescript
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-import van from "https://deno.land/x/minivan@0.6.4/src/mini-van.js"
+import van from "https://raw.githubusercontent.com/vanjs-org/mini-van/0.6.4/src/mini-van.js"
 
 const document = new DOMParser().parseFromString("", "text/html")!
 const {tags, html} = van.vanWithDoc(document)
